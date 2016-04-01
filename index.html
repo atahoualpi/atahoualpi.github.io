@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<title>D3 Visualization 1</title>
-		<script type="text/javascript" src="d3/d3.js"></script>
-		<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
 		<style type="text/css">
 		p {
-			font-size: 24px;
+			color: #377387;
+			font-size: 12px;
 			font-weight: bold;
-			font-family: Helvetica, Arial, sans-serif;
-
+			font-family: FontAwesome;
+		}
+		h4 {
+			font-weight: bold;
+			font-family: FontAwesome;
 		}
 		.axis path,
 		.axis line {
@@ -47,21 +47,71 @@
     		border: 2px double #B8165F;
 		}
 		</style>
+		<meta charset="utf-8">
+		<title>D3 Test</title>
+		<script type="text/javascript" src="d3/d3.js"></script>
 	</head>
+	<h2>Assignment 2A: Simple SVG stuff</h2>
+	<p>5 squares with different colors and increasingly transparent. They go from bottom of the SVG element to the top and each of them has a gray boundary of width 2 and dimentsions 80.</p>
+	<div id="square"></div>
 
-	<div id="vis1"></div>
+	<h2>Assignment 2B: One scatter plot and two datasets</h2>
+	<h4>Prostitution and vehicle theft crimes in SF districts in 2003 and 2015</h3>
+	<div id="text"></div>
 	<div id="vis2"></div>
-	<!-- <input type="radio"> -->
-
 	<body>
+		<script type="text/javascript">
+			var dataset = [5,10,15,20,25];
+			// Width and height of canvas
+			var w1 = 600;
+			var h1 = 200;
+			var padding1 = 1;
+			// Create svg element
+			svg = d3.select("#square")
+				.append("svg")
+				.attr("width", w1)
+				.attr("height", h1);
+
+			svg.selectAll("rect")
+				.data(dataset)
+				.enter()
+				.append("rect")
+				.attr("x",function(d,i){
+					return 50*i+padding1;
+				})
+				.attr("y",function(d,i){
+					return 60-i*15;
+				})
+				.attr("width", 80)
+				.attr("height", 80)
+				.attr("fill", function(d,i){
+					switch(i){
+						case 0:
+							return "purple"
+						case 1:
+							return "blue"
+						case 2:
+							return "green"
+						case 3:
+							return "yellow"
+						case 4:
+							return "red"
+					}	
+				})
+				.attr("stroke", "gray")
+				.attr("stroke-width", 2)
+				.attr("opacity", function(d,i){ 
+					return 1.0-0.2*i;
+				});
+		</script>
 		<script type="text/javascript">
 			//Variable declaration
 
 			// Width and height of canvas
-			var w = 700;
-			var h = 450; 
+			var w2 = 700;
+			var h2 = 450; 
 			// Padding for visualization 
-			var padding = 30;
+			var padding2 = 30;
 			var xScale, yScale;
 			var xAxis, yAxis;
 			var svg;
@@ -95,20 +145,22 @@
 		</script>
 		<script type="text/javascript">
 			function text(){
-				d3.selectAll("#vis1")
+				d3.selectAll("#text")
 					.data(dataset2003)
 					.append("p")
-					.text("Prostitution and vehicle theft crimes in SF districts in 2003 and 2015")
-					.style("color", "#377387");
+					.text("Scatter plot showing the change in 2 specific crimes between years 2003 and 2015 in San Francisco districts.")
+					.style("color", "#377387")
+					.attr("font-family", 'FontAwesome')
+					.attr("font-size", "9px")
 			};
 	
 			function makeScale(){
 				xScale = d3.scale.linear()
 					.domain([0, d3.max(dataset2003, function(d){return parseInt(d.Prostitution)})])
-					.range([2*padding, w-padding*2]);
+					.range([2*padding2, w2-padding2*2]);
 				yScale = d3.scale.linear()
 					.domain([0, d3.max(dataset2003, function(d){return parseInt(d.Vehicle_Theft)})])
-					.range([h-padding, padding]);
+					.range([h2-padding2, padding2]);
 
 				// Define axis
 				xAxis = d3.svg.axis()
@@ -126,8 +178,8 @@
 				// Create svg element
 				svg = d3.select("#vis2")
 					.append("svg")
-					.attr("width", w)
-					.attr("height", h);
+					.attr("width", w2)
+					.attr("height", h2);
 
 
 				// Define clipping path
@@ -135,10 +187,10 @@
 					.attr("id", "chart-area")
 					.append("rect")
 					.attr({
-						x: padding+30,
-						y: padding,
-						width: w-padding*3-30,
-						height: h-padding*2
+						x: padding2+30,
+						y: padding2,
+						width: w2-padding2*3-30,
+						height: h2-padding2*2
 					});
 
 				// Create scatter
@@ -187,7 +239,7 @@
 						return yScale(parseInt(d.Vehicle_Theft)+parseInt(d.Total_Crimes/2500));
 					})
 					.attr("font-family", 'FontAwesome')
-						.attr("font-size", "11px")
+					.attr("font-size", "11px")
 					.attr("fill", function(d, i){
 							return "rgb("+(178-i*10)+","+(128+i)+","+(78+i*10)+")"
 					});			
@@ -197,27 +249,27 @@
 				// Create x-axis
 				svg.append("g")
 					.attr("class", "x axis")
-					.attr("transform", "translate(0,"+(h-padding)+")")
+					.attr("transform", "translate(0,"+(h2-padding2)+")")
 					.call(xAxis);
 				// Create y-axis
 				svg.append("g")
 					.attr("class", "y axis")
-					.attr("transform", "translate("+ 2*padding+",0)")
+					.attr("transform", "translate("+ 2*padding2+",0)")
 					.call(yAxis);
 
 				//axis labels
 				svg.append("text")
 					.attr("class", "x label")
 					.attr("text-anchor", "middle")
-					.attr("x", w/2)
-					.attr("y", h)
+					.attr("x", w2/2)
+					.attr("y", h2)
 					.text("PROSTITUTION")
 					.attr("font-family", 'FontAwesome')
 					.attr("font-size", "14px")
 				svg.append("text")
 					.attr("class", "y label")
 					.attr("text-anchor", "middle")
-					.attr("x", -w/4)
+					.attr("x", -w2/4)
 					.attr("y", 2)
 					.attr("dy", ".75em")
 					.attr("transform", "rotate(-90)")
