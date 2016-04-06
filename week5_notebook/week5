@@ -1,0 +1,124 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "ename": "IOError",
+     "evalue": "File ..\\week5\\SFPD_Incidents_-_from_1_January_2003.csv does not exist",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mIOError\u001b[0m                                   Traceback (most recent call last)",
+      "\u001b[1;32m<ipython-input-3-1bada577c9e4>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m()\u001b[0m\n\u001b[0;32m      9\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     10\u001b[0m \u001b[1;31m#opening the file in read mode\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m---> 11\u001b[1;33m \u001b[0mdf\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mpd\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mread_csv\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'..\\week5\\SFPD_Incidents_-_from_1_January_2003.csv'\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m     12\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     13\u001b[0m \u001b[1;31m#In this exercise we explore KK-means clustering\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;32m/home/angeliki/anaconda2/lib/python2.7/site-packages/pandas/io/parsers.pyc\u001b[0m in \u001b[0;36mparser_f\u001b[1;34m(filepath_or_buffer, sep, dialect, compression, doublequote, escapechar, quotechar, quoting, skipinitialspace, lineterminator, header, index_col, names, prefix, skiprows, skipfooter, skip_footer, na_values, true_values, false_values, delimiter, converters, dtype, usecols, engine, delim_whitespace, as_recarray, na_filter, compact_ints, use_unsigned, low_memory, buffer_lines, warn_bad_lines, error_bad_lines, keep_default_na, thousands, comment, decimal, parse_dates, keep_date_col, dayfirst, date_parser, memory_map, float_precision, nrows, iterator, chunksize, verbose, encoding, squeeze, mangle_dupe_cols, tupleize_cols, infer_datetime_format, skip_blank_lines)\u001b[0m\n\u001b[0;32m    496\u001b[0m                     skip_blank_lines=skip_blank_lines)\n\u001b[0;32m    497\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 498\u001b[1;33m         \u001b[1;32mreturn\u001b[0m \u001b[0m_read\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mfilepath_or_buffer\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mkwds\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    499\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    500\u001b[0m     \u001b[0mparser_f\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0m__name__\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mname\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;32m/home/angeliki/anaconda2/lib/python2.7/site-packages/pandas/io/parsers.pyc\u001b[0m in \u001b[0;36m_read\u001b[1;34m(filepath_or_buffer, kwds)\u001b[0m\n\u001b[0;32m    273\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    274\u001b[0m     \u001b[1;31m# Create the parser.\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 275\u001b[1;33m     \u001b[0mparser\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mTextFileReader\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mfilepath_or_buffer\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;33m**\u001b[0m\u001b[0mkwds\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    276\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    277\u001b[0m     \u001b[1;32mif\u001b[0m \u001b[1;33m(\u001b[0m\u001b[0mnrows\u001b[0m \u001b[1;32mis\u001b[0m \u001b[1;32mnot\u001b[0m \u001b[0mNone\u001b[0m\u001b[1;33m)\u001b[0m \u001b[1;32mand\u001b[0m \u001b[1;33m(\u001b[0m\u001b[0mchunksize\u001b[0m \u001b[1;32mis\u001b[0m \u001b[1;32mnot\u001b[0m \u001b[0mNone\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;32m/home/angeliki/anaconda2/lib/python2.7/site-packages/pandas/io/parsers.pyc\u001b[0m in \u001b[0;36m__init__\u001b[1;34m(self, f, engine, **kwds)\u001b[0m\n\u001b[0;32m    588\u001b[0m             \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0moptions\u001b[0m\u001b[1;33m[\u001b[0m\u001b[1;34m'has_index_names'\u001b[0m\u001b[1;33m]\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mkwds\u001b[0m\u001b[1;33m[\u001b[0m\u001b[1;34m'has_index_names'\u001b[0m\u001b[1;33m]\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    589\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 590\u001b[1;33m         \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0m_make_engine\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mengine\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    591\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    592\u001b[0m     \u001b[1;32mdef\u001b[0m \u001b[0m_get_options_with_defaults\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mengine\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;32m/home/angeliki/anaconda2/lib/python2.7/site-packages/pandas/io/parsers.pyc\u001b[0m in \u001b[0;36m_make_engine\u001b[1;34m(self, engine)\u001b[0m\n\u001b[0;32m    729\u001b[0m     \u001b[1;32mdef\u001b[0m \u001b[0m_make_engine\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mengine\u001b[0m\u001b[1;33m=\u001b[0m\u001b[1;34m'c'\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    730\u001b[0m         \u001b[1;32mif\u001b[0m \u001b[0mengine\u001b[0m \u001b[1;33m==\u001b[0m \u001b[1;34m'c'\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 731\u001b[1;33m             \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0m_engine\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mCParserWrapper\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mf\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;33m**\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0moptions\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    732\u001b[0m         \u001b[1;32melse\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    733\u001b[0m             \u001b[1;32mif\u001b[0m \u001b[0mengine\u001b[0m \u001b[1;33m==\u001b[0m \u001b[1;34m'python'\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;32m/home/angeliki/anaconda2/lib/python2.7/site-packages/pandas/io/parsers.pyc\u001b[0m in \u001b[0;36m__init__\u001b[1;34m(self, src, **kwds)\u001b[0m\n\u001b[0;32m   1101\u001b[0m         \u001b[0mkwds\u001b[0m\u001b[1;33m[\u001b[0m\u001b[1;34m'allow_leading_cols'\u001b[0m\u001b[1;33m]\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mindex_col\u001b[0m \u001b[1;32mis\u001b[0m \u001b[1;32mnot\u001b[0m \u001b[0mFalse\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m   1102\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m-> 1103\u001b[1;33m         \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0m_reader\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0m_parser\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mTextReader\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0msrc\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;33m**\u001b[0m\u001b[0mkwds\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m   1104\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m   1105\u001b[0m         \u001b[1;31m# XXX\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;32mpandas/parser.pyx\u001b[0m in \u001b[0;36mpandas.parser.TextReader.__cinit__ (pandas/parser.c:3246)\u001b[1;34m()\u001b[0m\n",
+      "\u001b[1;32mpandas/parser.pyx\u001b[0m in \u001b[0;36mpandas.parser.TextReader._setup_parser_source (pandas/parser.c:6111)\u001b[1;34m()\u001b[0m\n",
+      "\u001b[1;31mIOError\u001b[0m: File ..\\week5\\SFPD_Incidents_-_from_1_January_2003.csv does not exist"
+     ]
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "from sklearn import tree\n",
+    "import pandas as pd\n",
+    "import random\n",
+    "from __future__ import division\n",
+    "from sklearn.cluster import KMeans\n",
+    "from sklearn.metrics.pairwise import paired_distances as dist\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "#opening the file in read mode\n",
+    "df = pd.read_csv('..\\week5\\SFPD_Incidents_-_from_1_January_2003.csv')\n",
+    "\n",
+    "#In this exercise we explore KK-means clustering\n",
+    "#and we it out on the locations of the PROSTITUTION crime type.\n",
+    "locations_data = df[df['Category'] == 'PROSTITUTION'].loc[ : , ['X','Y']].astype(float)\n",
+    "\n",
+    "locations_data = locations_data[locations_data.X < -122] #DELETING data errors inclusions\n",
+    "\n",
+    "squared_errors = []\n",
+    "number_of_clusters_list = range(2,7)\n",
+    "clusters_predictions = []\n",
+    "points_data = locations_data[['X','Y']]\n",
+    "cluster_centers_data = pd.DataFrame(columns=['X', 'Y', 'num_K','clustering_index', 'avg_sq_Err'])\n",
+    "\n",
+    "for number_of_clusters in number_of_clusters_list:\n",
+    "    \n",
+    "    KM = KMeans(n_clusters = number_of_clusters).fit(points_data)\n",
+    "    #saving the cluster centers to calculate the squared errors later\n",
+    "    cluster_centers = KM.cluster_centers_\n",
+    "    clusters_predictions = KM.predict(points_data)\n",
+    "    #insert predictions as column in the dataset\n",
+    "    locations_data.insert(number_of_clusters,'K'+str(number_of_clusters),clusters_predictions)#(loc, column, value,)\n",
+    "    #list of all the centers in relative position to all the data\n",
+    "    cluster_center_of_points = map(lambda(index): cluster_centers[index],clusters_predictions)\n",
+    "    #the squared error is the sum of the squared distances between each point and the relative cluster center\n",
+    "    squared_errors.append(sum(dist(cluster_center_of_points, points_data.values, squared=True)))\n",
+    "    #adding cluster centers info to the dataset\n",
+    "    for index in range(len(cluster_centers)):\n",
+    "        cluster_centers_data.loc[len(cluster_centers_data)] = [cluster_centers[index][0],cluster_centers[index][1],number_of_clusters,index,squared_errors[-1]]\n",
+    "\n",
+    "print 'Squared error differences between different values of K :'\n",
+    "for i in range(len(squared_errors)-1):\n",
+    "    print '{:2.3f} error difference with '.format(squared_errors[i] - squared_errors[i+1]),(i+2),' and ',(i+3),' clusters.'\n",
+    "\n",
+    "#print locations_data.head()\n",
+    "#print cluster_centers_data\n",
+    "#Saving data to be displayed in D3\n",
+    "locations_data.to_json('prost_locations.json',orient='values')\n",
+    "cluster_centers_data.to_json('cluster_centers_locations.json',orient='values')\n",
+    "\n",
+    "\n",
+    "\n",
+    "plt.figure(\"Squared error with number of Clusters\")    \n",
+    "plt.plot(number_of_clusters_list, squared_errors)\n",
+    "plt.xticks(number_of_clusters_list)\n",
+    "plt.xlabel(\"k\")\n",
+    "plt.ylabel(\"total squared error\")\n",
+    "plt.title(\"Total Error vs. # of Clusters\")\n",
+    "#IF YOU WANT THE PLOT UNCHECK THIS (IT WILL BLOCK PART OF PREVIOUS CODE)\n",
+    "#plt.show()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.11"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
