@@ -198,14 +198,14 @@ console.log(data)
   }
 
   function transitionMultiples() {
-    var t = svg.transition().duration(750),
+    var t = svg1.transition().duration(750),
         g = t.selectAll(".group").attr("transform", function(d) { return "translate(0," + y0(d.key) + ")"; });
     g.selectAll("rect").attr("y", function(d) { return y1(d.Value); });
     g.select(".group-label").attr("y", function(d) { return y1(d.values[0].Value / 2); })
   }
 
   function transitionStacked() {
-    var t = svg.transition().duration(750),
+    var t = svg1.transition().duration(750),
         g = t.selectAll(".group").attr("transform", "translate(0," + y0(y0.domain()[0]) + ")");
     g.selectAll("rect").attr("y", function(d) { return y1(d.Value + d.valueOffset); });
     g.select(".group-label").attr("y", function(d) { return y1(d.values[0].Value / 2 + d.values[0].valueOffset); })
