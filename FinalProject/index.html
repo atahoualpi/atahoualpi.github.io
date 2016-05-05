@@ -28,7 +28,18 @@
     text-align:center;
     padding:5px;
 }
-</style></head>
+</style>
+<style>
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+</style>
+</head>
 <body>
 <div id="header">
 <h1>Social Data Analysis and Visualization - Final Project</h1>
@@ -37,7 +48,9 @@
 <center>
 <a href="#plot1">Plot 1</a>
 </center><br>
-plot2<br>
+<center>
+<a href="#plot2">Plot 2</a>
+</center><br>
 plot3
 </div>
 <style>
@@ -197,6 +210,56 @@ console.log(data)
   }
 });
 
+</script>
+<a name="plot2">
+<script type="text/javascript">
+  var width = 960,
+    height = 500,
+    radius = Math.min(width, height) / 2;
+
+var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+var arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
+
+var labelArc = d3.svg.arc()
+    .outerRadius(radius - 40)
+    .innerRadius(radius - 40);
+
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.Trees*1000; });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+d3.csv("dangerous_trees.csv", type, function(error, data) {
+  if (error) throw error;
+
+  var g = svg.selectAll(".arc")
+      .data(pie(data))
+    .enter().append("g")
+      .attr("class", "arc");
+
+  g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.data.Dangerousness); });
+
+  g.append("text")
+      .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .text(function(d) { return d.data.Dangerousness; });
+});
+
+function type(d) {
+  d.Trees = +d.Trees;
+  return d;
+}
 </script>
 </body>
 </html>
