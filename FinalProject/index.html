@@ -43,11 +43,15 @@
 </center><br>
 plot3
 </div>
+<div>
+  <label><input type="radio" name="mode" value="multiples" checked> Multiples</label>
+  <label><input type="radio" name="mode" value="stacked"> Stacked</label>
+</div>
 <div id="vis1"></div>
 <div id="vis2"></div>
 <style>
 /*1st plot*/
-vis1 {
+body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: auto;
   position: relative;
@@ -89,10 +93,7 @@ form {
 }
 
 </style>
-<form>
-  <label><input type="radio" name="mode" value="multiples" checked> Multiples</label>
-  <label><input type="radio" name="mode" value="stacked"> Stacked</label>
-</form>
+
 <script src="/d3/d3.js"></script>
 <a name="plot1">
 <script>
