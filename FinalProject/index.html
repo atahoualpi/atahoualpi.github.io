@@ -230,9 +230,7 @@ var labelArc = d3.svg.arc()
     .outerRadius(radius - 40)
     .innerRadius(radius - 40);
 
-var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d.Trees*1000; });
+
 
 var svg2 = d3.select("#vis2").append("svg")
     .attr("width", width)
@@ -242,7 +240,9 @@ var svg2 = d3.select("#vis2").append("svg")
 
 d3.csv("dangerous_trees.csv", type, function(error, data) {
   if (error) throw error;
-
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.Trees*1000; });
   var g = svg2.selectAll(".arc")
       .data(pie(data))
     .enter().append("g")
