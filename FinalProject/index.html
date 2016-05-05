@@ -43,6 +43,7 @@
 </center><br>
 plot3
 </div>
+<a name="plot1">
 <div>
   <label><input type="radio" name="mode" value="multiples" checked> Multiples</label>
   <label><input type="radio" name="mode" value="stacked"> Stacked</label>
@@ -95,13 +96,10 @@ form {
 </style>
 
 <script src="/d3/d3.js"></script>
-<a name="plot1">
+
+<!-- 1st plot -->
+
 <script>
-
-// var parseDate = d3.time.format("%Y-%m").parse,
-//     formatYear = d3.format("02d"),
-//     formatDate = function(d) { return "Q" + ((d.getMonth() / 3 | 0) + 1) + formatYear(d.getFullYear() % 100); };
-
 var margin = {top: 10, right: 20, bottom: 20, left: 120},
     width = 760 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -211,8 +209,10 @@ console.log(data)
     g.select(".group-label").attr("y", function(d) { return y1(d.values[0].Value / 2 + d.values[0].valueOffset); })
   }
 });
-
 </script>
+
+<!-- 2nd plot -->
+
 <a name="plot2">
 <script type="text/javascript">
   var width = 960,
