@@ -130,7 +130,7 @@ var stack = d3.layout.stack()
 
 var color = d3.scale.category10();
 
-var svg = d3.select("#vis1").append("svg")
+var svg1 = d3.select("#vis1").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -151,7 +151,7 @@ console.log(data)
   y1.domain([0, d3.max(data, function(d) { return d.Value;
   })]).range([y0.rangeBand(), 0]);
 
-  var group = svg.selectAll(".group")
+  var group = svg1.selectAll(".group")
       .data(dataByGroup)
     .enter().append("g")
       .attr("class", "group")
@@ -234,7 +234,7 @@ var pie = d3.layout.pie()
     .sort(null)
     .value(function(d) { return d.Trees*1000; });
 
-var svg = d3.select("#vis2").append("svg")
+var svg2 = d3.select("#vis2").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
@@ -243,7 +243,7 @@ var svg = d3.select("#vis2").append("svg")
 d3.csv("dangerous_trees.csv", type, function(error, data) {
   if (error) throw error;
 
-  var g = svg.selectAll(".arc")
+  var g = svg2.selectAll(".arc")
       .data(pie(data))
     .enter().append("g")
       .attr("class", "arc");
