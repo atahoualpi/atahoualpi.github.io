@@ -23,15 +23,15 @@ public artwork,Carlton,5170
 public artwork,West Melbourne ,5000
 public artwork,Docklands,5000
 public artwork,North Melbourne,5013
-pedestrian count,Southbank,7611.805459
-pedestrian count,South Yarra/Melbourne Remainder,0.0
-pedestrian count,Parkville,148.687025
-pedestrian count,Port Melbourne,78.1456
-pedestrian count,West Melbourne ,930.005869
-pedestrian count,Melbourne ,34558.496784
-pedestrian count,Kensington,0.0
-pedestrian count,East Melbourne,2079.36
-pedestrian count,Carlton,3651.74675
-pedestrian count,West Melbourne ,0.0
-pedestrian count,Docklands,15276.669362
-pedestrian count,North Melbourne,0.0
+tree dangerousness,Southbank,6858
+tree dangerousness,South Yarra/Melbourne Remainder,5000
+tree dangerousness,Parkville,29988
+tree dangerousness,Port Melbourne,6367
+tree dangerousness,West Melbourne ,5000
+tree dangerousness,Melbourne ,7517
+tree dangerousness,Kensington,11095
+tree dangerousness,East Melbourne,10307
+tree dangerousness,Carlton,10862
+tree dangerousness,West Melbourne ,5000
+tree dangerousness,Docklands,8274
+tree dangerousness,North Melbourne,10546
