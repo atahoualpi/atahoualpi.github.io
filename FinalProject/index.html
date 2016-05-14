@@ -288,7 +288,7 @@ d3.csv("best_area4.csv", function(error, data) {
               .duration(200)
               .style("opacity", .9);
 
-            div.html("<span style='font-weight:bold'>"+d.Group+": "+"<span style='color:green' style='font-weight:bold'>"+d.Value+"</span></br>"+" Danger Scale: </span>"+"<span style='color:red' style='font-weight:bold'>"+d.Scale+"</span>")
+            div.html("<span style='font-weight:bold'>"+d.Group+": "+"<span style='color:green' style='font-weight:bold'>"+d.Value+"</span></br>"+" Area's Danger Scale: </span>"+"<span style='color:red' style='font-weight:bold'>"+d.Scale+"</span>")
               .style("left", (d3.event.pageX) + "px")     
                       .style("top", (d3.event.pageY) + "px"); 
           })
