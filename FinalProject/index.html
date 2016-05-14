@@ -562,7 +562,7 @@ var x3 = d3.scale.linear()
     .range([0, width]);
 
 var y3 = d3.scale.linear()
-    .range([height, 40]);
+    .range([height, 0]);
 
 var xAxis3 = d3.svg.axis()
     .scale(x3)
@@ -592,7 +592,7 @@ cluster7 = data[5];
 console.log(cluster7);
 
 x3.domain([0, d3.max(data, function(d) { return d.NumberOfClusters;})]);
-y3.domain([0, d3.max(data, function(d) { return d.SquaredError;})]);
+y3.domain([40, d3.max(data, function(d) { return d.SquaredError;})]);
 
 svg3.append("g")
     .attr("class", "x axis3")
