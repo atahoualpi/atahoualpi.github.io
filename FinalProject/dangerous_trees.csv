@@ -1,5 +1,5 @@
-Dangerousness,Trees
-Very Dangerous,10975
-Quite Dangerous,14450
-Little Dangerous,20173
-Not Dangerous,19518
+Dangerousness,Trees,Areas,Types
+Very Dangerous,10975,East Melbourne,Moreton Bay Fig-River Sheoak-Japanese Zelkova-White Cedar-Cyprus Plane-Brush Box-English Elm-Drooping She-Oak-Elm
+Quite Dangerous,14411,Southbank-Kensington-South Yarra-North Melbourne,Sugar Gum-Lemon Scented Gum-Pin Oak-London Plane-Yellow Gum-Yellow Box-Peppercorn Tree-Ironbark-Kanooka
+Little Dangerous,20135,Parkville-Port Melbourne-Carlton-West Melbourne,Manna Gum-Black Wattle-Wirilda Wattle-River Red Gum-Gum-Huntingdon Elm-Willow Bottlebrush-English Oak-tba-Lemon Bottlebrush-Canary Island Date Palm-Snow-in-Summer-Hills Fig
+Not Dangerous,19493,Melbourne-Docklands,Nettle Tree-Red Box-Golden Wattle-Callery Pear-Prickly Paperbark-Chinese Elm-Swamp Sheoak-Silver Wattle-Lilly-Pilly-Spotted Gum-Smooth-barked Apple Myrtle-Queensland Kauri-Flowering Gum-Maidenhair Tree-Lightwood Wattle

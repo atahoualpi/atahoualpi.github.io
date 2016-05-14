@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta charset="utf-8">
-<head><style>
+<head>
+<style>
 #header {
     background-color:black;
     color:white;
@@ -29,32 +30,13 @@
     padding:5px;
 }
 </style>
-</head>
-<body>
-<div id="header">
-<h1>Social Data Analysis and Visualization - Final Project</h1>
-</div>
-<div id="nav">
-<center>
-<a href="#plot1">Plot 1</a>
-<br>
-<a href="#plot2">Plot 2</a>
-</center>
-</div>
-<a name="plot1">
-<div>
-  <label><input type="radio" name="mode" value="multiples" checked> Multiples</label>
-  <label><input type="radio" name="mode" value="stacked"> Stacked</label>
-</div>
-<div id="vis1"></div>
-<div id="vis2"></div>
 <style>
 /*1st plot*/
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: auto;
-  position: relative;
-  width: 960px;
+  position: absolute;
+  /*width: 960px;*/
 }
 
 text {
@@ -72,6 +54,7 @@ text {
 }
 
 .group-label {
+  font: 10px FontAwesome;
   font-weight: bold;
   text-anchor: end;
 }
@@ -81,6 +64,21 @@ form {
   right: 10px;
   top: 10px;
 }
+
+div.tooltip {   
+      position: absolute;           
+      text-align: center;           
+      padding: 12px;   
+      line-height: 1;
+      font-weight: bold;
+      color: #fff;       
+      background: rgba(0, 0, 0, 0.8);
+      border: 0px;      
+      border-radius: 2px;           
+      pointer-events: none;  
+      white-space: pre-wrap;       
+}
+
 /*2nd plot*/
 .arc text {
   font: 13px FontAwesome;
@@ -121,7 +119,85 @@ form {
   left: 0;
 }
 
+div.tooltip_tree {   
+      position: absolute;           
+      text-align: center;  
+      width:150px;         
+      padding: 12px;   
+      line-height: 1;
+      font-weight: bold;
+      color: #fff;       
+      background: rgba(0, 0, 0, 0.8);
+      border: 0px;      
+      border-radius: 2px;           
+      pointer-events: none;  
+      white-space: pre-wrap;       
+}
+
+/*3rd plot*/
+
+.axis3 path,
+.axis3 line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.axis3-text{
+  font-family: FontAwesome;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.line {
+  fill: none;
+  stroke: limegreen;
+  stroke-width: 3px;
+}
+
+.dot {
+  fill: white;
+  stroke: brown;
+  stroke-width: 1.5px;
+}
 </style>
+
+<style>
+
+#curve-text {
+  font: 40px sans-serif;
+}
+
+#curve-line {
+  /*stroke: #000;*/
+  display: none;
+}
+
+</style>
+</head>
+<body>
+<div id="header">
+<h1>Social Data Analysis and Visualization - Final Project</h1>
+</div>
+<div id="nav">
+<center>
+<a href="#plot1">Plot 1</a>
+<br>
+<a href="#plot2">Plot 2</a>
+<br>
+<a href="#plot3">Plot 3</a>
+</center>
+</div>
+<a name="plot1">
+<div>
+  <label><input type="radio" name="mode" value="multiples" checked> Points of Interest</label>
+  <label><input type="radio" name="mode" value="stacked"> Level of Dangerousness</label>
+</div>
+<div id="vis1"></div>
+<div id="vis2"></div>
+<a name="plot2">
+<div id="vis3"></div>
+<a name="plot3">
+<div id="vis4"></div>
 
 <script src="d3/d3.js"></script>
 <script src="d3-tip/index.js"></script>
@@ -129,6 +205,7 @@ form {
 <!-- 1st plot -->
 
 <script>
+
 var margin = {top: 10, right: 20, bottom: 20, left: 120},
     width = 760 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -155,7 +232,9 @@ var stack = d3.layout.stack()
     .y(function(d) { return d.Value; })
     .out(function(d, y0) { d.valueOffset = y0; });
 
-var color = d3.scale.category10();
+// var color = d3.scale.category10();
+var color = d3.scale.ordinal()
+    .range([/*"#98abc5", "#8a89a6",*/ "#7b6888",/* "#6b486b",*/ "#a05d56", "#d0743c", "#ff8c00"]);
 
 var svg1 = d3.select("#vis1").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -163,10 +242,15 @@ var svg1 = d3.select("#vis1").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("best_area3.csv", function(error, data) {
-console.log(data)
+var tooltip;
+var div;
+//make tooltip 
+div = d3.select("#vis1").append("div")   
+    .attr("class", "tooltip")               
+    .style("opacity", 0);
+
+d3.csv("best_area4.csv", function(error, data) {
   data.forEach(function(d) {
-    // d.Date = parseDate(d.Date);
     d.Value = +d.Value;
   });
 
@@ -188,8 +272,8 @@ console.log(data)
       .attr("class", "group-label")
       .attr("x", -6)
       .attr("y", function(d) { return y1(d.values[0].Value / 2); })
-      .attr("dy", ".35em")
-      .text(function(d) { return d.key; });
+      .attr("dy", "0.35em")
+      .text(function(d) { return d.key; })
 
   group.selectAll("rect")
       .data(function(d) { return d.values; })
@@ -198,7 +282,21 @@ console.log(data)
       .attr("x", function(d) { return x(d.Area); })
       .attr("y", function(d) { return y1(d.Value); })
       .attr("width", x.rangeBand())
-      .attr("height", function(d) { return y0.rangeBand() - y1(d.Value); });
+      .attr("height", function(d) { return y0.rangeBand() - y1(d.Value); })
+      .on("mouseover", function(d){
+            div.transition()
+              .duration(200)
+              .style("opacity", .9);
+
+            div.html("<span style='font-weight:bold'>"+d.Group+": "+"<span style='color:green' style='font-weight:bold'>"+d.Value+"</span></br>"+" Danger Scale: </span>"+"<span style='color:red' style='font-weight:bold'>"+d.Scale+"</span>")
+              .style("left", (d3.event.pageX) + "px")     
+                      .style("top", (d3.event.pageY) + "px"); 
+          })
+           .on("mouseout", function(d) {       
+                  div.transition()        
+                      .duration(500)      
+                      .style("opacity", 0);  
+          });
 
   group.filter(function(d, i) { return !i; }).append("g")
       .attr("class", "x axis")
@@ -210,7 +308,7 @@ console.log(data)
             .attr("dy", ".45em")
             .attr("transform", function(d) {
                 return "rotate(-20)" 
-                });;
+                });
 
   d3.selectAll("input").on("change", change);
 
@@ -227,26 +325,61 @@ console.log(data)
   function transitionMultiples() {
     var t = svg1.transition().duration(750),
         g = t.selectAll(".group").attr("transform", function(d) { return "translate(0," + y0(d.key) + ")"; });
-    g.selectAll("rect").attr("y", function(d) { return y1(d.Value); });
+    
+    g.selectAll("rect").attr("y", function(d) { return y1(d.Value); })
+          .style("fill", function(d) { 
+            return color(d.Group); })
+      
+    
     g.select(".group-label").attr("y", function(d) { return y1(d.values[0].Value / 2); })
   }
 
   function transitionStacked() {
     var t = svg1.transition().duration(750),
         g = t.selectAll(".group").attr("transform", "translate(0," + y0(y0.domain()[0]) + ")");
-    g.selectAll("rect").attr("y", function(d) { return y1(d.Value + d.valueOffset); });
+
+    g.selectAll("rect").attr("y", function(d) { return y1(d.Value + d.valueOffset); })
+        .style("fill", function(d) { 
+          return "rgb("+ 255*(d.Danger/100)/350+","+ 255*(350-(d.Danger/100))/350+",0)"; })
+        
     g.select(".group-label").attr("y", function(d) { return y1(d.values[0].Value / 2 + d.values[0].valueOffset); })
   }
 });
 </script>
 
+<!-- Curved text -->
+
+<script>
+
+var svg4 = d3.select("#vis2").append("svg")
+    .attr("width", 960)
+    .attr("height", 200)
+    .attr("viewBox", "0 0 1000 300");
+
+svg4.append("defs").append("path")
+    .attr("id", "curve")
+    .attr("d", "M100,100C200,100 300,0 400,100C500,200 600,200 700,150C800,100 900,100 900,150");
+
+svg4.append("text")
+    .attr("id", "curve-text")
+  .append("textPath")
+    .attr("xlink:href", "#curve")
+    .text("Trees are more dangerous than they seem...")
+    .transition().duration(2000);
+
+svg4.append("use")
+    .attr("id", "curve-line")
+    .attr("xlink:href", "#curve");
+
+</script>
+
 <!-- 2nd plot -->
 
-<a name="plot2">
 <script type="text/javascript">
   var width = 960,
     height = 500,
     radius = Math.min(width, height) / 3;
+  var centered;
 
 var color = d3.scale.ordinal()
     .range([/*"#98abc5", "#8a89a6",*/ "#7b6888",/* "#6b486b",*/ "#a05d56", "#d0743c", "#ff8c00"]);
@@ -263,7 +396,7 @@ var pie = d3.layout.pie()
     .sort(null)
     .value(function(d) { return d.Trees; });
 
-var svg2 = d3.select("#vis2").append("svg")
+var svg2 = d3.select("#vis3").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
@@ -273,11 +406,23 @@ var svg2 = d3.select("#vis2").append("svg")
  var tip = d3.tip()
       .attr('class', 'd3-tip')
       // .direction('e') 
-      .offset([-10,-150])
+      .offset([-10,0])
       .html(function(d) {
-        return "<strong>Number of Trees:</strong> <span style='color:white'>" + d.data.Trees + "</span>";
+        return "<strong>Number of Trees:</strong> <span style='color:white'>" + d.data.Trees + "</span></br><strong>Areas:</strong> <span style='color:white'>" + d.data.Areas + "</span>";
       });
-svg2.call(tip);
+
+  // var tip2 = d3.tip()
+  //       .attr('class', 'd3-tip')
+  //       // .direction('e') 
+  //       .offset([-10,0])
+  //       .html(function(d) {
+  //         return "<strong>Types:</strong> <span style='color:red'>" + d.data.Types + "</span>";
+  //       });
+  var div2;
+// make tooltip 
+div2 = d3.select("#vis3").append("div")   
+    .attr("class", "tooltip_tree") 
+    .style("opacity", 0);
 
 d3.csv("dangerous_trees.csv", type, function(error, data) {
 
@@ -288,11 +433,27 @@ d3.csv("dangerous_trees.csv", type, function(error, data) {
   var g2 = svg2.selectAll(".arc")
       .data(pie(data))
     .enter().append("g")
-      .attr("class", "arc");
+      .attr("class", "arc")
+      .on("mouseover", function(g, i){
+        svg2.selectAll(".arc").filter(function(d, ii){
+          return ii!=i ;
+        })
+        .transition(0)
+        .style("opacity", 0.05);
+      })
+      .on("mouseout", function(g, i){
+        svg2.selectAll(".arc").filter(function(d, ii){
+          return ii!=i;
+        })
+        .transition(0)
+        .style("opacity", 1);
+      })
+      .on("click", clicked);
 
   g2.append("path")
       .attr("d", arc)
       .style("fill", function(d) { return color(d.data.Dangerousness); });
+g2.call(tip);
 
   g2.append("text")
       .attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
@@ -300,8 +461,88 @@ d3.csv("dangerous_trees.csv", type, function(error, data) {
       .text(function(d) { return d.data.Dangerousness; })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
-
   // });
+
+function clicked(d){
+  var x, y, k;
+
+  if(d && centered !== d){
+    var centroid_z = labelArc.centroid(d);
+    x = centroid_z[0]+width/4;
+    y = centroid_z[1]+height/4;
+    console.log(x,y)
+    k = 2;
+    centered = d;
+  }else{
+    x = width/2;
+    y = height/2;
+    k = 1;
+    centered = null;
+  }
+
+  g2.selectAll("path").classed("active", centered && function(d){
+    return d === centered;
+  });
+  g2.transition().duration(750)
+  .attr("transform", "translate("+width/2+","+height/2+")scale("+
+    k+")translate("+ -x+","+ -y +")")
+  .style("stroke", 1.5/k + "px")
+
+
+// d3.csv("TreesFiltered.csv", function(data2) {
+// var g2_fil = svg2.selectAll(".arc")
+//       .data(data2)
+//     .enter().append("g")
+  // if (k==2)
+  // g2.call(tip2);
+  g2.selectAll("path")
+      // .on("mouseover", tip2.show)
+      // .on("mouseout", tip2.hide)
+      .on("mouseover", function(d){
+            div2.transition()
+              .duration(200)
+              .style("opacity", .9);
+
+            div2.html("<strong>Types of Trees:</strong></br>" + "<span style='color:green'>"+d.data.Types + "</span>")
+              .style("left", 0 + "px")     
+              .style("top", 2*height + "px"); 
+          })
+           .on("mouseout", function(d) {       
+                  div2.transition()        
+                      .duration(500)      
+                      .style("opacity", 0);  
+          })
+
+    // });
+
+
+}
+
+function divide(svg2){
+  console.log("hi")
+// var line = g2.append("line")
+//              .attr("x1", -width/15)
+//              .attr("y1", -height/15)
+//              .attr("x2", labelArc.centroid(d)[0])
+//              .attr("y2", labelArc.centroid(d)[1])
+//              .attr("stroke-width", 1)
+//              .attr("stroke", "red");
+// var slices = svg2.selectAll(".arc")
+//         // .data(pie(data_small))
+//         .enter().append("line")
+// slices.transition()
+  
+
+  
+  // svg2.call(tip);
+
+
+}
+
+function write(){
+
+  // console.log("bye")
+}
 });
 
 function type(d) {
@@ -309,5 +550,123 @@ function type(d) {
   return d;
 }
 </script>
+
+<!-- 3rd plot -->
+<script type="text/javascript">
+
+var margin = {top: 10, right: 20, bottom: 20, left: 120},
+    width = 760 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x3 = d3.scale.linear()
+    .range([0, width]);
+
+var y3 = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis3 = d3.svg.axis()
+    .scale(x3)
+    .orient("bottom");
+
+var yAxis3 = d3.svg.axis()
+    .scale(y3)
+    .orient("left");
+
+var line3 = d3.svg.line()
+    .interpolate("monotone")
+    .x(function(d) { return x3(d.NumberOfClusters); })
+    .y(function(d) { return y3(d.SquaredError); });
+
+var svg3 = d3.select("#vis4").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var cluster7;
+
+d3.csv("restaurants_squarederrors.csv", type, function(error, data) {
+  if (error) throw error;
+
+cluster7 = data[5];
+console.log(cluster7);
+
+x3.domain([0, d3.max(data, function(d) { return d.NumberOfClusters;})]);
+y3.domain([0, d3.max(data, function(d) { return d.SquaredError;})]);
+
+svg3.append("g")
+    .attr("class", "x axis3")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis3)
+    .append("text")
+      .attr("class", "axis3-text")
+      .attr("x", width )
+      .attr("dy",  "-0.5em")
+      .style("text-anchor", "end")
+      .text("Number of Clusters");
+
+svg3.append("g")
+    .attr("class", "y axis3")
+    .call(yAxis3)
+    .append("text")
+      .attr("class", "axis3-text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Squared Error");
+
+svg3.append("path")
+    .datum(data)
+    .attr("class", "line")
+    .attr("d", line3);
+
+svg3.selectAll(".dot")
+    .data(data)
+  .enter().append("circle")
+    .attr("class", "dot")
+    .attr("cx", line3.x())
+    .attr("cy", line3.y())
+    .attr("r", 3.5)
+    .style("fill", "#DC143C");
+
+var focus = svg3.append("g")
+focus.append("circle")
+    .attr("cx", x3(cluster7.NumberOfClusters))
+    .attr("cy", y3(cluster7.SquaredError))
+    .attr("r", 2)
+    .style("fill", "#DC143C")
+    .each(pulse);
+
+});
+
+function type(d) {
+  d.SquaredError = +d.SquaredError;
+  d.NumberOfClusters = +d.NumberOfClusters;
+  return d;
+}
+
+function pulse(focus){
+  focus = svg3.select("circle");
+      (function repeat() {
+        focus = focus
+          .attr("cx", x3(cluster7.NumberOfClusters))
+          .attr("cy", y3(cluster7.SquaredError))
+          .style("fill", "orange")
+          .transition()
+          .duration(2000)
+          .attr("stroke-width", 20)
+          .attr("r", 10)
+          .transition()
+          .duration(2000)
+          .attr('stroke-width', 0.5)
+          .attr("r", 20)
+          .ease('sine')
+          .each("end", repeat);
+  })();
+}
+
+</script>
+
 </body>
 </html>
