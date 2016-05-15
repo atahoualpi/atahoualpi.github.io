@@ -1,1 +1,34 @@
-
+Group,Area,Value,Danger,Scale
+cafes & restaurants,East Melbourne,1446,27275,7
+cafes & restaurants,Parkville,1296,119854,10
+cafes & restaurants,Port Melbourne,1136,5091,2
+cafes & restaurants,Southbank,2113,8541,2
+cafes & restaurants,Kensington,1247,28251,7
+cafes & restaurants,Melbourne,11650,15583,5
+cafes & restaurants,Carlton,3178,30620,10
+cafes & restaurants,South Yarra,1531,29952,7
+cafes & restaurants,Docklands,2086,10963,2
+cafes & restaurants,West Melbourne,1553,8608,2
+cafes & restaurants,North Melbourne,1839,26368,7
+public artwork,East Melbourne,1785,27275,7
+public artwork,Parkville,1027,119854,10
+public artwork,Port Melbourne,1000,5091,2
+public artwork,Southbank,1169,8541,2
+public artwork,Kensington,1004,28251,7
+public artwork,Melbourne,15401,15583,5
+public artwork,Carlton,1170,30620,10
+public artwork,South Yarra,1000,29952,7
+public artwork,Docklands,1000,10963,2
+public artwork,West Melbourne,1025,8608,2
+public artwork,North Melbourne,1013,26368,7
+trees,East Melbourne,6307,27275,7
+trees,Parkville,25988,119854,10
+trees,Port Melbourne,2367,5091,2
+trees,Southbank,2858,8541,2
+trees,Kensington,7095,28251,7
+trees,Melbourne,3517,15583,5
+trees,Carlton,6862,30620,10
+trees,South Yarra,7090,29952,7
+trees,Docklands,4274,10963,2
+trees,West Melbourne,3110,8608,2
+trees,North Melbourne,6546,26368,7
