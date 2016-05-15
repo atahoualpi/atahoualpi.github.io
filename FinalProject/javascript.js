@@ -45,7 +45,7 @@ div = d3.select("#vis1").append("div")
     .attr("class", "tooltip")               
     .style("opacity", 0);
 
-d3.csv("csv files/best_area4.csv", function(error, data) {
+d3.csv("csv-files/best_area4.csv", function(error, data) {
   data.forEach(function(d) {
     d.Value = +d.Value;
   });
@@ -211,7 +211,7 @@ div2 = d3.select("#vis3").append("div")
     .attr("class", "tooltip_tree") 
     .style("opacity", 0);
 
-d3.csv("csv files/dangerous_trees.csv", type, function(error, data) {
+d3.csv("csv-files/dangerous_trees.csv", type, function(error, data) {
   if (error) throw error;
    
   var g2 = svg2.selectAll(".arc")
@@ -350,7 +350,7 @@ var svg3 = d3.select("#vis4").append("svg")
 
 var cluster7;
 
-d3.csv("csv files/restaurants_squarederrors.csv", type, function(error, data) {
+d3.csv("csv-files/restaurants_squarederrors.csv", type, function(error, data) {
   if (error) throw error;
 
 cluster7 = data[5];
