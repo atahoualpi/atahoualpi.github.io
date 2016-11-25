@@ -1,0 +1,105 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false,
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "from sklearn import tree\n",
+    "import pandas as pd\n",
+    "import random\n",
+    "from __future__ import division\n",
+    "from sklearn.cluster import KMeans\n",
+    "from sklearn.metrics.pairwise import paired_distances as dist\n",
+    "import matplotlib.pyplot as plt\n",
+    "\n",
+    "#opening the file in read mode\n",
+    "df = pd.read_csv('..\\week5\\SFPD_Incidents_-_from_1_January_2003.csv')\n",
+    "\n",
+    "#In this exercise we explore KK-means clustering\n",
+    "#and we it out on the locations of the PROSTITUTION crime type.\n",
+    "locations_data = df[df['Category'] == 'PROSTITUTION'].loc[ : , ['X','Y']].astype(float)\n",
+    "\n",
+    "locations_data = locations_data[locations_data.X < -122] #DELETING data errors inclusions\n",
+    "\n",
+    "squared_errors = []\n",
+    "number_of_clusters_list = range(2,7)\n",
+    "clusters_predictions = []\n",
+    "points_data = locations_data[['X','Y']]\n",
+    "cluster_centers_data = pd.DataFrame(columns=['X', 'Y', 'num_K','clustering_index', 'avg_sq_Err'])\n",
+    "\n",
+    "for number_of_clusters in number_of_clusters_list:\n",
+    "    \n",
+    "    KM = KMeans(n_clusters = number_of_clusters).fit(points_data)\n",
+    "    #saving the cluster centers to calculate the squared errors later\n",
+    "    cluster_centers = KM.cluster_centers_\n",
+    "    clusters_predictions = KM.predict(points_data)\n",
+    "    #insert predictions as column in the dataset\n",
+    "    locations_data.insert(number_of_clusters,'K'+str(number_of_clusters),clusters_predictions)#(loc, column, value,)\n",
+    "    #list of all the centers in relative position to all the data\n",
+    "    cluster_center_of_points = map(lambda(index): cluster_centers[index],clusters_predictions)\n",
+    "    #the squared error is the sum of the squared distances between each point and the relative cluster center\n",
+    "    squared_errors.append(sum(dist(cluster_center_of_points, points_data.values, squared=True)))\n",
+    "    #adding cluster centers info to the dataset\n",
+    "    for index in range(len(cluster_centers)):\n",
+    "        cluster_centers_data.loc[len(cluster_centers_data)] = [cluster_centers[index][0],cluster_centers[index][1],number_of_clusters,index,squared_errors[-1]]\n",
+    "\n",
+    "print 'Squared error differences between different values of K :'\n",
+    "for i in range(len(squared_errors)-1):\n",
+    "    print '{:2.3f} error difference with '.format(squared_errors[i] - squared_errors[i+1]),(i+2),' and ',(i+3),' clusters.'\n",
+    "\n",
+    "#print locations_data.head()\n",
+    "#print cluster_centers_data\n",
+    "#Saving data to be displayed in D3\n",
+    "locations_data.to_json('prost_locations.json',orient='values')\n",
+    "cluster_centers_data.to_json('cluster_centers_locations.json',orient='values')\n",
+    "\n",
+    "\n",
+    "\n",
+    "plt.figure(\"Squared error with number of Clusters\")    \n",
+    "plt.plot(number_of_clusters_list, squared_errors)\n",
+    "plt.xticks(number_of_clusters_list)\n",
+    "plt.xlabel(\"k\")\n",
+    "plt.ylabel(\"total squared error\")\n",
+    "plt.title(\"Total Error vs. # of Clusters\")\n",
+    "#IF YOU WANT THE PLOT UNCHECK THIS (IT WILL BLOCK PART OF PREVIOUS CODE)\n",
+    "#plt.show()\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 2",
+   "language": "python",
+   "name": "python2"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 2
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython2",
+   "version": "2.7.11"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}
