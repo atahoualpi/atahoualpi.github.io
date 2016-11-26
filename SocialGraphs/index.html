@@ -2,14 +2,29 @@
 <html>
 <head>
 	<title>Discogs</title>
+
+<style>
+div {
+    height: 500px;
+    width: 50%;
+    background-color: powderblue;
+}
+
+.node {stroke: #fff; stroke-width: 1.5px;}
+.link {stroke: #999; stroke-opacity: .6;}
+</style>
 </head>
 
 <div id="canvas"></div>
+<div id="d3-container"></div>
+
 <body>
 <!-- <script src="d3/d3.js"></script> -->
 <script src="https://d3js.org/d3.v3.js"></script> 
 <script type="text/javascript" src="js/main_js.js"></script> 
 <script type="text/javascript" src="js/test.js"></script> 
+<script type="text/javascript" src="js/thegraph.js"></script> 
+
 <script type="text/javascript" src="JSNetworkX/jsnetworkx.js"></script>
 
 <h1>Find your new favorite artist</h1>
@@ -20,6 +35,8 @@ document.write(5 + 6);
 </script>
 <button type="button" onclick="testFunc()">Try it</button>
 <button type="button" onclick="test1()">Again</button>
+<button type="button" onclick="start()">Press here!</button>
+
 
 </body>
 </html>
