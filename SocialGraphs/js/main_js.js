@@ -1,4 +1,5 @@
-    var G = new jsnx.DiGraph();
+    testFunc(){
+    	var G = new jsnx.DiGraph();
      
     G.addNodesFrom([1,2,3,4,5,[9,{color: '#008A00'}]], {color: '#0064C7'});
     G.addCycle([1,2,3,4,5]);
@@ -15,3 +16,6 @@
         labelStyle: {fill: 'white'},
         stickyDrag: true
     });
+    }
+
+    
