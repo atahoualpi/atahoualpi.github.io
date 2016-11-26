@@ -1,13 +1,17 @@
-// var jsnx = require('jsnetworkx'); // in Node
-
-// a tree of height 4 with fan-out 2
-var G = jsnx.balancedTree(2, 4);
-
-// Compute the shortest path between node 2 and 7
-var path = jsnx.bidirectionalShortestPath(G, 2, 7);
-// [ 2, 0, 1, 3, 7 ]
-
-// or asynchronously
-jsnx.genBidirectionalShortestPath(G, 2, 7).then(function(path) {
-  // path = [ 2, 0, 1, 3, 7 ]
-});
+    var G = new jsnx.DiGraph();
+     
+    G.addNodesFrom([1,2,3,4,5,[9,{color: '#008A00'}]], {color: '#0064C7'});
+    G.addCycle([1,2,3,4,5]);
+    G.addEdgesFrom([[1,9], [9,1]]);
+     
+    jsnx.draw(G, {
+        element: '#canvas', 
+        withLabels: true, 
+        nodeStyle: {
+            fill: function(d) { 
+                return d.data.color; 
+            }
+        }, 
+        labelStyle: {fill: 'white'},
+        stickyDrag: true
+    });
