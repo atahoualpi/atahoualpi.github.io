@@ -1,4 +1,4 @@
-    testFunc(){
+    function testFunc(){
     	var G = new jsnx.DiGraph();
      
     G.addNodesFrom([1,2,3,4,5,[9,{color: '#008A00'}]], {color: '#0064C7'});
