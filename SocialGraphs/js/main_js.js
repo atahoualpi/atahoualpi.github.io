@@ -6,15 +6,15 @@
 	    G.addEdgesFrom([[1,9], [9,1]]);
 	     
 	    jsnx.draw(G, {
-	        'element': '#canvas', 
-	        'withLabels': true, 
-	        'nodeStyle': {
+	        element: '#canvas', 
+	        withLabels: true, 
+	        nodeStyle: {
 	            fill: function(d) { 
 	                return d.data.color; 
 	            }
 	        }, 
-	        'labelStyle': {fill: 'white'},
-	        'stickyDrag': true
+	        labelStyle: {fill: 'white'},
+	        stickyDrag: false
 	    });
     }
 

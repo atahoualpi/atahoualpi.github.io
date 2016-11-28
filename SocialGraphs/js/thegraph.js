@@ -1,11 +1,14 @@
-// We load the latest version of d3.js from the Web.
+// We load the 3rd version of d3.js from the Web.
 // require.config({paths: {d3: "https://d3js.org/d3.v3.min"}});
 // require(["d3"], function(d3) {
-function start(){
-
+// function start(){
+    // var width = self.frameElement ? 960 : innerWidth,
+    //     height = self.frameElement ? 500 : innerHeight;
     // Parameter declaration, the height and width of our viz.
-    var width = 500,
+    var width = 700,
         height = 500;
+    // var width = svg.style("width"),
+    //     height = svg.style("height");
 
     // Colour scale for node colours.
     var color = d3.scale.category10();
@@ -21,59 +24,95 @@ function start(){
     // SVG = Scalable Vector Graphics
     var svg = d3.select("#d3-container").select("svg")
     if (svg.empty()) {
-        svg = d3.select("#d3-container").append("svg")
+        svg = d3.select("#d3-container")
+                    .on("touchstart", nozoom)
+                    .on("touchmove", nozoom)
+                    .append("svg")
                     .attr("width", width)
                     .attr("height", height);
     }
 
+    // var svg_track = d3.select("#bardata").select("svg")
+    // if (svg_track.empty()) {
+    //  var svg_track = d3.select("#tracklist")
+    //                 .append("svg")
+    //                 .attr("width", width)
+    //                 .attr("height", height);
+    // }
+
+    var view;
+    // var TheTracklist;
+    var tracks = document.getElementById('tracklist1');
+    var sentiment = document.getElementById('sentiment1');
+
+     //Toggle stores whether the highlighting is on
+    var toggle = 0;
+
+    //Create an array logging what is connected to what
+    var linkedByIndex = {};
+    var tracklist = {};
+
+    var drag = force.drag()
+        .on("dragstart", dragstart);
+
+    var zoom = d3.behavior.zoom()
+        .scaleExtent([1,4])
+        .on("zoom", zoomed);
+
     // We load the JSON network file.
     d3.json("graphs/graph_artists.json", function(error, graph) {
 
+        var g = svg.append("g")
+                .call(zoom);
 
-        //Toggle stores whether the highlighting is on
-var toggle = 0;
+        g.append("rect")
+            .attr("width", width)
+            .attr("height", height)
+            .on("click", clicked);
 
-//Create an array logging what is connected to what
-var linkedByIndex = {};
 
-for (var i = 0; i < graph.nodes.length; i++) {
-    linkedByIndex[i + "," + i] = 1;
-};
+        view = g.append("g")
+            .attr("class", "view");
 
-graph.links.forEach(function (d) {
-    linkedByIndex[d.source.index + "," + d.target.index] = 1;
-});
 
-//Looks up whether a pair of nodes are neighbours.
-function neighboring(a, b) {
-    return linkedByIndex[a.index + "," + b.index];
-}
+        for (var i = 0; i < graph.nodes.length; i++) {
+            linkedByIndex[i + "," + i] = 1;
+        };
 
-function connectedNodes() {
-    if (toggle == 0) {
-        //Reduce the opacity of all but the neighbouring nodes to 0.3.
-        var d = d3.select(this).node().__data__;
-        node.style("opacity", function (o) {
-            return neighboring(d, o) | neighboring(o, d) ? 1 : 0.3;
+        graph.links.forEach(function (d) {
+            linkedByIndex[d.source + "," + d.target] = 1;
         });
-        //Reduce the opacity of all but the neighbouring edges to 0.8.
-        link.style("opacity", function (o) {
-            return d.index==o.source.index | d.index==o.target.index ? 1 : 0.8;
-        });
-        //Increases the stroke width of the neighbouring edges.
-        link.style("stroke-width", function (o) {
-            return d.index==o.source.index | d.index==o.target.index ? 3 : 0.8;
-        });
-        //Reset the toggle.
-        toggle = 1;
-    } else {
-        //Restore everything back to normal
-        node.style("opacity", 1);
-        link.style("opacity", 1);
-        link.style("stroke-width", 1);
-        toggle = 0;
-    }
-}
+
+        //Looks up whether a pair of nodes are neighbours.
+        function neighboring(a, b) {
+            return linkedByIndex[a + "," + b];
+        }
+
+        function connectedNodes() {
+            if (toggle == 0) {
+                //Reduce the opacity of all but the neighbouring nodes to 0.3.
+                var d = d3.select(this).node().__data__;
+                node.style("opacity", function (o) {
+                    return neighboring(d.index, o.index) | neighboring(o.index, d.index) ? 1 : 0.3;
+                });
+                //Reduce the opacity of all but the neighbouring edges to 0.8.
+                link.style("opacity", function (o) {
+                    return d.index==o.source.index | d.index==o.target.index ? 1 : 0.8;
+                });
+                //Increases the stroke width of the neighbouring edges.
+                link.style("stroke-width", function (o) {
+                    return d.index==o.source.index | d.index==o.target.index ? 3 : 0.8;
+                });
+                //Reset the toggle.
+                toggle = 1;
+            } else {
+                //Restore everything back to normal
+                node.style("opacity", 1);
+                link.style("opacity", 1);
+                link.style("stroke-width", 1);
+                toggle = 0;
+            }
+        }
 
 
         // Within this block, the network has been loaded
@@ -87,14 +126,23 @@ function connectedNodes() {
 
         // We create a < line> SVG element for each link
         // in the graph.
-        var link = svg.selectAll(".link")
+        var link = view.selectAll(".link")
             .data(graph.links)
             .enter().append("line")
             .attr("class", "link");
 
+        // TheTracklist =  svg_track.append("text")
+        //                         .attr("x", 100)
+        //                         .attr("y", 100)
+        //                         // .attr("dy", ".35em")
+        //                         .attr("width", width)
+        //                         .attr("height", height)
+        //                         .text(" ");
+
+
         // We create a < circle> SVG element for each node
         // in the graph, and we specify a few attributes.
-        var node = svg.selectAll(".node")
+        var node = view.selectAll(".node")
             .data(graph.nodes)
             .enter().append("circle")
             .attr("class", "node")
@@ -104,15 +152,22 @@ function connectedNodes() {
                 return color(d.degree); 
             })
             .call(force.drag)
-            .on('dblclick', connectedNodes);
+            .call(drag)
+            .on('dblclick', connectedNodes)
+            .on("click", function(d){
+                tracks.innerHTML = "";
+                tracks.appendChild(makeUL(d.tracklist));
+                sentiment.innerHTML = d.sentiment;
+            })
+      
 
-        // The label each node its node number from the networkx graph.
+// The label each node its node number from the networkx graph.
         node.append("title")
             // .text(function(d) { return d.id; });
-            .text(function(d) { return "Node: " + d.id + "\n" + "Degree: " + d.degree + "\n" + "Katz: " + d.katz;});
-
-
-
+            .text(function(d) { 
+                // document.getElementById('tracklist').appendChild(makeUL(d.tracklist));
+                return "Artist: " + d.id + "\n" + "Degree: " + d.degree + "\n" + "Betweenness: " + d.betw;});
+            
         // We bind the positions of the SVG elements
         // to the positions of the dynamic force-directed graph,
         // at each time step.
@@ -125,6 +180,53 @@ function connectedNodes() {
             node.attr("cx", function(d) { return d.x; })
                 .attr("cy", function(d) { return d.y; });
         });
+    
+        
     });
+
+    function dragstart(d) {
+        d3.select(this).classed("fixed", d.fixed = true);    
+    }
+
+    function zoomed() {
+        // if(toggle == 1)
+            view.attr("transform", "translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")");
+    }
+
+    function clicked(d, i) {
+        if (d3.event.defaultPrevented) return; // zoomed
+    
+    tracks.innerHTML = "";
+    sentiment.innerHTML = "";
+
+      d3.select(this).transition()
+          .style("fill", "black")
+        .transition()
+          .style("fill", "powderblue");
+    }
+
+    function nozoom() {
+        d3.event.preventDefault();
+    }
+ 
 // });
-}
+    function makeUL(array) {
+        // Create the list element:
+        var list = document.createElement('ol');
+
+        for(var i = 0; i < array.length; i++) {
+            // Create the list item:
+            var item = document.createElement('li');
+
+            // Set its contents:
+            item.appendChild(document.createTextNode(array[i]));
+
+            // Add it to the list:
+            list.appendChild(item);
+        }
+
+        // Finally, return the constructed list:
+        return list;
+    }
+
+// }
