@@ -1,42 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Discogs</title>
+	<title>Diggin Discogs</title>
 
 <style>
-div {
+/*for the divs*/
+.network {
     height: 500px;
-    width: 50%;
+    width: 700px;
     background-color: powderblue;
 }
 
+.bardata {
+    height: 500px;
+    width: 60%;
+    /*background-color: white;*/
+}
+
+/*for the graph*/
 .node {stroke: #fff; stroke-width: 1.5px;}
 .link {stroke: #999; stroke-opacity: .6;}
+/*
+text {
+  fill: #000;
+  font: 10px sans-serif;
+  pointer-events: none;
+}*/
+
+/*when you click on void*/
+.network rect {
+  fill: powderblue;
+}
+
+/*for the bar chart*/
+
+
+.chart rect {
+  fill: steelblue;
+}
+
+.chart text {
+  fill: /*black*/;
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+/*for the horizontal bar chart*/
+/*
+.bar {
+  fill: steelblue;
+}*/
+
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+
+/*div, ul{
+     padding:0; 
+     margin:0;
+     padding-left: 10px
+}*/
+
 </style>
 </head>
 
-<div id="canvas"></div>
-<div id="d3-container"></div>
+
 
 <body>
 <!-- <script src="d3/d3.js"></script> -->
-<script src="https://d3js.org/d3.v3.js"></script> 
-<script type="text/javascript" src="js/main_js.js"></script> 
-<script type="text/javascript" src="js/test.js"></script> 
-<script type="text/javascript" src="js/thegraph.js"></script> 
 
-<script type="text/javascript" src="JSNetworkX/jsnetworkx.js"></script>
 
 <h1>Find your new favorite artist</h1>
 <p>In the graph below, choose nodes to see details about artists</p>
 
+<!-- <button type="button" onclick="testFunc()">Try it</button> -->
+<!-- <button type="button" onclick="start()">Press here!</button> -->
+<!-- 
 <script>
-document.write(5 + 6);
-</script>
-<button type="button" onclick="testFunc()">Try it</button>
-<button type="button" onclick="test1()">Again</button>
-<button type="button" onclick="start()">Press here!</button>
+    start();
+</script> -->
+
+<div class= "network" id="d3-container"></div>
+<h1>Choose an artist on the graph to see his tracklist</h1>
+<div id="tracklist1"></div>
+<h1>Bar data</h1>
+<!-- <div class="bardata" id="bar1"></div> -->
+<!-- <svg class="chart"></svg> -->
+<svg class="chartHorizontal" id=chartHo></svg>
+
+<h1>Sentiment Analysis</h1>
+<div id="sentiment1"></div>
 
 
+<script src="https://d3js.org/d3.v3.js"></script> 
+<script type="text/javascript" src="js/main_js.js"></script> 
+<script type="text/javascript" src="js/thegraph.js"></script> 
+<!-- <script type="text/javascript" src="js/thebars2.js"></script>  -->
+<script type="text/javascript" src="js/thebars3.js"></script> 
+<script type="text/javascript" src="JSNetworkX/jsnetworkx.js"></script>
 </body>
 </html>
