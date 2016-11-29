@@ -35,15 +35,17 @@ text {
 /*for the bar chart*/
 
 
-.chart rect {
-  fill: steelblue;
+.chartHorizontal {
+  /*fill: pink;*/
+  background-color: rgb(120,200,195);
 }
 
-.chart text {
-  fill: /*black*/;
+
+/*.chartHorizontal text {
+  fill: black;
   font: 10px sans-serif;
   text-anchor: middle;
-}
+}*/
 
 /*for the horizontal bar chart*/
 /*
@@ -52,7 +54,7 @@ text {
 }*/
 
 
-.axis text {
+/*.axis text {
   font: 10px sans-serif;
 }
 
@@ -61,7 +63,7 @@ text {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
-}
+}*/
 
 
 
@@ -71,6 +73,19 @@ text {
      padding-left: 10px
 }*/
 
+div.tooltip {   
+            position: absolute;           
+            text-align: center;           
+            width: 100px;                  
+            height: 28px;                 
+            padding: 2px;             
+            font: 12px sans-serif;        
+            background: lightsteelblue;   
+            border: 0px;      
+            border-radius: 8px;           
+            pointer-events: none;         
+        }
+
 </style>
 </head>
 
@@ -78,7 +93,6 @@ text {
 
 <body>
 <!-- <script src="d3/d3.js"></script> -->
-
 
 <h1>Find your new favorite artist</h1>
 <p>In the graph below, choose nodes to see details about artists</p>
@@ -91,22 +105,24 @@ text {
 </script> -->
 
 <div class= "network" id="d3-container"></div>
-<h1>Choose an artist on the graph to see his tracklist</h1>
-<div id="tracklist1"></div>
-<h1>Bar data</h1>
+
+<h1>Artist data</h1>
 <!-- <div class="bardata" id="bar1"></div> -->
 <!-- <svg class="chart"></svg> -->
 <svg class="chartHorizontal" id=chartHo></svg>
 
 <h1>Sentiment Analysis</h1>
 <div id="sentiment1"></div>
-
+<h1>Most used word</h1>
+<div id="word1"></div>
+<h1>Choose an artist on the graph to see his tracklist</h1>
+<div id="tracklist1"></div>
 
 <script src="https://d3js.org/d3.v3.js"></script> 
 <script type="text/javascript" src="js/main_js.js"></script> 
+<script type="text/javascript" src="js/thebars3.js"></script>
 <script type="text/javascript" src="js/thegraph.js"></script> 
-<!-- <script type="text/javascript" src="js/thebars2.js"></script>  -->
-<script type="text/javascript" src="js/thebars3.js"></script> 
 <script type="text/javascript" src="JSNetworkX/jsnetworkx.js"></script>
+
 </body>
 </html>
