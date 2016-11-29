@@ -41,9 +41,11 @@
     // }
 
     var view;
+
     // var TheTracklist;
     var tracks = document.getElementById('tracklist1');
     var sentiment = document.getElementById('sentiment1');
+    var word = document.getElementById('word1');
 
      //Toggle stores whether the highlighting is on
     var toggle = 0;
@@ -155,9 +157,11 @@
             .call(drag)
             .on('dblclick', connectedNodes)
             .on("click", function(d){
+                barData(this.__data__);
                 tracks.innerHTML = "";
                 tracks.appendChild(makeUL(d.tracklist));
                 sentiment.innerHTML = d.sentiment;
+                word.innerHTML = d.word;
             })
       
 
@@ -198,6 +202,7 @@
     
     tracks.innerHTML = "";
     sentiment.innerHTML = "";
+    word.innerHTML = "";
 
       d3.select(this).transition()
           .style("fill", "black")
