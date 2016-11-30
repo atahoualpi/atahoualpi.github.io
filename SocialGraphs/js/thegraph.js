@@ -20,6 +20,32 @@
         .linkDistance(30)
         .size([width, height]);
 
+   // get data stuff
+    var svg_data = d3.select("#content").select("svg")
+    if (svg_data.empty()) {
+     var svg_data = d3.select("#content")
+                    .append("svg")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("fill", "white");
+    }
+    var g_data = svg_data.append("g")
+        g_data.append("rect")
+            .attr("class", "back_rect")
+            .attr("width", width)
+            .attr("height", height)
+
+    svg_data
+        .append("text")
+        .attr("class", "id")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 20)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black"); 
+    
+
     // We select the < div> we created earlier and add an  container.
     // SVG = Scalable Vector Graphics
     var svg = d3.select("#d3-container").select("svg")
@@ -32,20 +58,11 @@
                     .attr("height", height);
     }
 
-    // var svg_track = d3.select("#bardata").select("svg")
-    // if (svg_track.empty()) {
-    //  var svg_track = d3.select("#tracklist")
-    //                 .append("svg")
-    //                 .attr("width", width)
-    //                 .attr("height", height);
-    // }
-
     var view;
 
-    // var TheTracklist;
-    var tracks = document.getElementById('tracklist1');
-    var sentiment = document.getElementById('sentiment1');
-    var word = document.getElementById('word1');
+    var tracks = document.getElementById("tracklist1");
+    var sentiment = document.getElementById("sentiment1");
+    var word = document.getElementById("word1");
 
      //Toggle stores whether the highlighting is on
     var toggle = 0;
@@ -133,15 +150,6 @@
             .enter().append("line")
             .attr("class", "link");
 
-        // TheTracklist =  svg_track.append("text")
-        //                         .attr("x", 100)
-        //                         .attr("y", 100)
-        //                         // .attr("dy", ".35em")
-        //                         .attr("width", width)
-        //                         .attr("height", height)
-        //                         .text(" ");
-
-
         // We create a < circle> SVG element for each node
         // in the graph, and we specify a few attributes.
         var node = view.selectAll(".node")
@@ -157,11 +165,14 @@
             .call(drag)
             .on('dblclick', connectedNodes)
             .on("click", function(d){
+                getData(this.__data__);
                 barData(this.__data__);
                 tracks.innerHTML = "";
-                tracks.appendChild(makeUL(d.tracklist));
-                sentiment.innerHTML = d.sentiment;
-                word.innerHTML = d.word;
+                tracks.appendChild(makeUL( d.tracklist));
+                sentiment.innerHTML ="<span style=\"color:white\">"+d.sentiment+ "</span>";
+                word.innerHTML = "<span style=\"color:white\">"+d.word+ "</span>";
+                // content_data.innerHTML = d.id;
+                
             })
       
 
@@ -184,9 +195,20 @@
             node.attr("cx", function(d) { return d.x; })
                 .attr("cy", function(d) { return d.y; });
         });
+
     
-        
     });
+
+    function getData(node){
+        // d3.selectAll("#content > *").remove();
+
+        svg_data
+            .select("text.id")
+            .transition()
+            .duration(100)
+            .text(node.id)
+             
+    }
 
     function dragstart(d) {
         d3.select(this).classed("fixed", d.fixed = true);    
@@ -207,7 +229,7 @@
       d3.select(this).transition()
           .style("fill", "black")
         .transition()
-          .style("fill", "powderblue");
+          .style("fill", "#78C8C3");
     }
 
     function nozoom() {
@@ -222,7 +244,7 @@
         for(var i = 0; i < array.length; i++) {
             // Create the list item:
             var item = document.createElement('li');
-
+            item.style.color = "white";
             // Set its contents:
             item.appendChild(document.createTextNode(array[i]));
 
