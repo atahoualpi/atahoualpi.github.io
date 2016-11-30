@@ -1,1 +1,105 @@
-fafa
+body {background: black; margin: 0; padding: 0;} 
+a {color: #2b2bf6;}           
+#container {width: 900px; margin: 0; padding: 0; background: #dddddd;}           
+#header {width: 100%;  height: 150px;  margin: 0; padding: 0; border: 0; background: black;}           
+#d3-container {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: left; background: black;}           
+#content {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: left; background: black; background-opacity: 0.1;}   
+#content p {color: white}
+#chartHo {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: left; background: black;}    
+#chartHo h1 {color: white}
+#header p {color: white}
+#header h1 {color: white}
+#footer {width: 100%;  height: 70px;   margin: 0; padding: 0; border: 0; float: left; background: #000000; clear:both;}                            
+
+
+/*.network {
+    height: 500px;
+    width: 700px;
+    background-color: powderblue;
+}*/
+
+/*.bardata {
+    height: 500px;
+    width: 60%;*/
+    /*background-color: white;*/
+/*}*/
+
+/*for the graph*/
+.node {stroke: #fff; stroke-width: 1.5px;}
+.link {stroke: #999; stroke-opacity: .6;}
+/*
+text {
+  fill: #000;
+  font: 10px sans-serif;
+  pointer-events: none;
+}*/
+
+/*when you click on void*/
+.network rect {
+  /*fill: #78C8C3;*/
+  fill: orange;
+}
+
+.data .back_rect {
+  fill: orange;
+}
+
+/*for the bar chart*/
+
+
+.chartHorizontal .back_rect {
+  fill: orange;
+}
+
+.several text{
+  color: white;
+}
+
+
+body h1{
+  color: white;
+}
+/*.chartHorizontal text {
+  fill: black;
+  font: 10px sans-serif;
+  text-anchor: middle;
+}*/
+
+/*for the horizontal bar chart*/
+/*
+.bar {
+  fill: steelblue;
+}*/
+
+
+/*.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}*/
+
+
+
+/*div, ul{
+     padding:0; 
+     margin:0;
+     padding-left: 10px
+}*/
+
+div.tooltip {   
+            position: absolute;           
+            text-align: center;           
+            width: 100px;                  
+            height: 28px;                 
+            padding: 2px;             
+            font: 12px sans-serif;        
+            background: lightsteelblue;   
+            border: 0px;      
+            border-radius: 8px;           
+            pointer-events: none;         
+        }
