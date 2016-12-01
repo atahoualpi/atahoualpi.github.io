@@ -9,6 +9,31 @@
 
 
 <body>
+<!-- dropdown -->
+<div class="dropdown">
+<button onclick="myFunction()" class="dropbtn">Dropdown</button>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <a href="#about">About</a>
+    <a href="#base">Base</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+    <a href="#custom">Custom</a>
+    <a href="#support">Support</a>
+    <a href="#tools">Tools</a>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" id="popup">
+    <span class="close">x</span>
+    <p id="trivia">Choose an artist to see Random Trivia</p>
+  </div>
+
+</div>
 <!-- <script src="d3/d3.js"></script> -->
 
 <!-- <button type="button" onclick="testFunc()">Try it</button> -->
@@ -24,8 +49,12 @@
 <p>In the graph below, choose nodes to see details about artists</p>
  </div>
 <!-- <div id="sidebar"> Left Navigation Goes Here</div> -->
-<div class= "network" id="d3-container"></div>
-<div class="data" id="content"> <p>Content Goes Here</p></div>
+<div class= "network" id="d3-container">
+	<h2>The network</h2>
+	 <!-- Trigger/Open The Modal -->
+	<button id="myBtn">Choose an artist to see Random Trivia</button>
+</div>
+<div class="data" id="content"> <h2>Content Goes Here</h2></div>
 <div id="footer"> Footer Goes Here </div>
               
 
@@ -34,21 +63,23 @@
 <!-- <div class="bardata" id="bar1"></div> -->
 <!-- <svg class="chart"></svg> -->
 <div class="chartHorizontal" id=chartHo>
-	<h1>Artist data</h1>
+	<h2>Artist data</h2>
 </div>
 
-<h1>Sentiment Analysis</h1>
-<div class="several" id="sentiment1"></div>
-<h1>Most used word</h1>
-<div class="several" id="word1"></div>
-<h1>Choose an artist on the graph to see his tracklist</h1>
-<div class="several" id="tracklist1"></div>
+<div class="severalAll" id=sever>
+	<h2>More data</h2>
+</div>
+
+
+
 
 <script src="https://d3js.org/d3.v3.js"></script> 
 <script type="text/javascript" src="js/main_js.js"></script> 
 <script type="text/javascript" src="js/thebars3.js"></script>
 <script type="text/javascript" src="js/thegraph.js"></script> 
-<!-- <script type="text/javascript" src="js/text_data.js"></script>  -->
+<script type="text/javascript" src="js/text_data.js"></script> 
+<script type="text/javascript" src="js/random_trivia.js"></script> 
+<script type="text/javascript" src="js/DropDown.js"></script> 
 <script type="text/javascript" src="JSNetworkX/jsnetworkx.js"></script>
 
 </body>
