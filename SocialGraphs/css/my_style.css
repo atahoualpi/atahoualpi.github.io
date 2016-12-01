@@ -1,43 +1,27 @@
 body {background: black; margin: 0; padding: 0;} 
 a {color: #2b2bf6;}           
 #container {width: 900px; margin: 0; padding: 0; background: #dddddd;}           
-#header {width: 100%;  height: 150px;  margin: 0; padding: 0; border: 0; background: black;}           
+#header {width: 100%;  height: 100px;  margin: 0; padding: 0; border: 0; background: black;}           
 #d3-container {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: left; background: black;}           
-#content {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: left; background: black; background-opacity: 0.1;}   
-#content p {color: white}
+#content {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: right; background: black; background-opacity: 0.1;}   
+#content h2 {color: white}
 #chartHo {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: left; background: black;}    
-#chartHo h1 {color: white}
+#chartHo h2 {color: white}
+#sever {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: right; background: black;}    
 #header p {color: white}
 #header h1 {color: white}
 #footer {width: 100%;  height: 70px;   margin: 0; padding: 0; border: 0; float: left; background: #000000; clear:both;}                            
 
-
-/*.network {
-    height: 500px;
-    width: 700px;
-    background-color: powderblue;
-}*/
-
-/*.bardata {
-    height: 500px;
-    width: 60%;*/
-    /*background-color: white;*/
-/*}*/
-
 /*for the graph*/
 .node {stroke: #fff; stroke-width: 1.5px;}
-.link {stroke: #999; stroke-opacity: .6;}
-/*
-text {
-  fill: #000;
-  font: 10px sans-serif;
-  pointer-events: none;
-}*/
+.link {stroke: #000; stroke-opacity: .6;}
 
 /*when you click on void*/
 .network rect {
-  /*fill: #78C8C3;*/
   fill: orange;
+}
+.network  h2{
+ color: white;
 }
 
 .data .back_rect {
@@ -45,51 +29,118 @@ text {
 }
 
 /*for the bar chart*/
-
-
 .chartHorizontal .back_rect {
   fill: orange;
 }
 
-.several text{
-  color: white;
+/* for the data on the right*/
+.severalAll {
+  position: relative;
+}
+.severalAll .back_rect {
+  fill: orange;
 }
 
+.severalAll  h2{
+ color: white;
+}
+
+.several  text{
+ color: white;
+}
 
 body h1{
   color: white;
 }
-/*.chartHorizontal text {
-  fill: black;
-  font: 10px sans-serif;
-  text-anchor: middle;
-}*/
-
-/*for the horizontal bar chart*/
-/*
-.bar {
-  fill: steelblue;
-}*/
 
 
-/*.axis text {
-  font: 10px sans-serif;
+ /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}*/
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Dropdown menu*/
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+#myInput {
+    border-box: box-sizing;
+    background-image: url('searchicon.png');
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}
 
 
-
-/*div, ul{
-     padding:0; 
-     margin:0;
-     padding-left: 10px
-}*/
 
 div.tooltip {   
             position: absolute;           
