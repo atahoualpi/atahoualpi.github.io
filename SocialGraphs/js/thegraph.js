@@ -156,7 +156,7 @@
             .data(graph.nodes)
             .enter().append("circle")
             .attr("class", "node")
-            .attr("r", 5)  // radius
+            .attr("r", 6)  // radius
             .style("fill", function(d) {
                 // We colour the node depending on the degree.
                 return color(d.degree); 
@@ -167,11 +167,13 @@
             .on("click", function(d){
                 getData(this.__data__);
                 barData(this.__data__);
-                tracks.innerHTML = "";
-                tracks.appendChild(makeUL( d.tracklist));
-                sentiment.innerHTML ="<span style=\"color:white\">"+d.sentiment+ "</span>";
-                word.innerHTML = "<span style=\"color:white\">"+d.word+ "</span>";
-                // content_data.innerHTML = d.id;
+                artistData(this.__data__);
+                trivia(this.__data__);
+                // tracks.innerHTML = "";
+                // tracks.appendChild(makeUL( d.tracklist));
+                // sentiment.innerHTML ="<span style=\"color:white\">"+d.sentiment+ "</span>";
+                // word.innerHTML = "<span style=\"color:white\">"+d.word+ "</span>";
+             
                 
             })
       
@@ -222,14 +224,14 @@
     function clicked(d, i) {
         if (d3.event.defaultPrevented) return; // zoomed
     
-    tracks.innerHTML = "";
-    sentiment.innerHTML = "";
-    word.innerHTML = "";
+    // tracks.innerHTML = "";
+    // sentiment.innerHTML = "";
+    // word.innerHTML = "";
 
       d3.select(this).transition()
           .style("fill", "black")
         .transition()
-          .style("fill", "#78C8C3");
+          .style("fill", "orange");
     }
 
     function nozoom() {
