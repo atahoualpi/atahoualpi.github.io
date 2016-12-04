@@ -11,7 +11,7 @@
 <body>
 <!-- dropdown -->
 <div class="dropdown">
-<button onclick="myFunction()" class="dropbtn">Dropdown</button>
+<button onclick="showHideDD()" class="dropbtn">Dropdown</button>
   <div id="myDropdown" class="dropdown-content">
     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
     <a href="#about">About</a>
@@ -51,11 +51,13 @@
 <!-- <div id="sidebar"> Left Navigation Goes Here</div> -->
 <div class= "network" id="d3-container">
 	<h2>The network</h2>
-	 <!-- Trigger/Open The Modal -->
-	<button id="myBtn">Choose an artist to see Random Trivia</button>
+	 
 </div>
 <div class="data" id="content"> <h2>Content Goes Here</h2></div>
-<div id="footer"> Footer Goes Here </div>
+<div id="footer">  
+<!-- Trigger/Open The Modal -->
+	<button class="trivia" id="myBtn">Click to see Random Trivia</button>
+</div>
               
 
 <!-- <div class= "network" id="d3-container"></div>-->
@@ -69,8 +71,11 @@
 <div class="severalAll" id=sever>
 	<h2>More data</h2>
 </div>
-
-
+<div id="footer"> Footer Goes Here </div>
+<div class="wordclouds" id=wordcloud>
+	<h2>Wordcloud</h2>
+	 <img id="wordcloudpic" src="wordcloud/The Orb.png" alt="wordcloud picture" style="width:480px;height:480px;"> 
+</div>
 
 
 <script src="https://d3js.org/d3.v3.js"></script> 
