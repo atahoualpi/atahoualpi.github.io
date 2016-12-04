@@ -44,6 +44,88 @@
         .attr("font-family", 'FontAwesome')
         .attr("font-size", "20px")
         .attr("fill","black"); 
+    svg_data
+        .append("text")
+        .attr("class", "relevance")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 60)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black"); 
+    svg_data
+        .append("text")
+        .attr("class", "clicktosee")
+        .text("")
+        .attr("x", 50)
+        .attr("y", 90)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "15px")
+        .attr("fill","black"); 
+    svg_data
+        .append("text")
+        .attr("class", "genre")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 130)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black"); 
+    svg_data
+        .append("text")
+        .attr("class", "label")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 170)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black"); 
+    svg_data
+        .append("text")
+        .attr("class", "country")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 210)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black"); 
+    svg_data
+        .append("text")
+        .attr("class", "title")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 250)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black");
+    svg_data
+        .append("text")
+        .attr("class", "num_for_sale")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 290)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black");
+    svg_data
+        .append("text")
+        .attr("class", "want")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 330)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black");
+    svg_data
+        .append("text")
+        .attr("class", "have")
+        .text("")
+        .attr("x", 0)
+        .attr("y", 370)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black");
+    
     
 
     // We select the < div> we created earlier and add an  container.
@@ -57,6 +139,8 @@
                     .attr("width", width)
                     .attr("height", height);
     }
+    var mostStylArtist = "";
+    var commonStyles = 0;
 
     var view;
 
@@ -69,18 +153,23 @@
 
     //Create an array logging what is connected to what
     var linkedByIndex = {};
+    var linkedByCommunity = {};
+
     var tracklist = {};
 
     var drag = force.drag()
         .on("dragstart", dragstart);
 
     var zoom = d3.behavior.zoom()
-        .scaleExtent([1,4])
+        .scaleExtent([-8,4])
         .on("zoom", zoomed);
-
+    
     // We load the JSON network file.
     d3.json("graphs/graph_artists.json", function(error, graph) {
+    d3.json("graphs/communities.json", function(error2, community) {
 
+        console.log(Object.keys(community).length);
+        alert("Choose a node in the graph");
         var g = svg.append("g")
                 .call(zoom);
 
@@ -102,18 +191,21 @@
             linkedByIndex[d.source + "," + d.target] = 1;
         });
 
+      
+
         //Looks up whether a pair of nodes are neighbours.
         function neighboring(a, b) {
             return linkedByIndex[a + "," + b];
         }
 
-        function connectedNodes() {
+        function connectedNodes(d) {
             if (toggle == 0) {
                 //Reduce the opacity of all but the neighbouring nodes to 0.3.
-                var d = d3.select(this).node().__data__;
+                // var d = d3.select(this).node().__data__;
                 node.style("opacity", function (o) {
                     return neighboring(d.index, o.index) | neighboring(o.index, d.index) ? 1 : 0.3;
                 });
+                
                 //Reduce the opacity of all but the neighbouring edges to 0.8.
                 link.style("opacity", function (o) {
                     return d.index==o.source.index | d.index==o.target.index ? 1 : 0.8;
@@ -122,6 +214,14 @@
                 link.style("stroke-width", function (o) {
                     return d.index==o.source.index | d.index==o.target.index ? 3 : 0.8;
                 });
+console.log(community[d.id])
+                // for (var i = 0; i < Object.keys(community).length; i++){
+                    // console.log(community[i])
+                    // if(d.id == community[i]){
+                    //     console.log(d.id + community[i])
+                    // }
+                // }
+
                 //Reset the toggle.
                 toggle = 1;
             } else {
@@ -131,6 +231,36 @@
                 link.style("stroke-width", 1);
                 toggle = 0;
             }
+        }
+
+        function mostStyles(d) {
+        
+            //Reduce the opacity of all but the neighbouring nodes to 0.3.
+            // var d = d3.select(this).node().__data__;
+            mostStylArtist = "<Noone>";
+            commonStyles = 0;           
+            node.attr("r", function (o) {  
+                
+                if (d.id != o.id){
+                    if (neighboring(d.index, o.index) | neighboring(o.index, d.index)){
+                        var counter = 0;
+                        for (var dstyl in d.styles){                            
+                            for (var ostyl in o.styles){
+                                if (d.styles[dstyl] == o.styles[ostyl]){
+                                    counter++;
+                                }
+                            }
+                        }
+                        if (counter > commonStyles){
+                            commonStyles = counter;
+                            mostStylArtist = o.id;
+                        }
+                    } 
+                    return 6;
+                }
+                else
+                    return 9;
+            });
         }
 
 
@@ -165,10 +295,12 @@
             .call(drag)
             .on('dblclick', connectedNodes)
             .on("click", function(d){
+                mostStyles(this.__data__);
                 getData(this.__data__);
                 barData(this.__data__);
                 artistData(this.__data__);
-                trivia(this.__data__);
+                trivia(this.__data__);   
+                document.getElementById("wordcloudpic").src="wordcloud/"+d.id+".png";
                 // tracks.innerHTML = "";
                 // tracks.appendChild(makeUL( d.tracklist));
                 // sentiment.innerHTML ="<span style=\"color:white\">"+d.sentiment+ "</span>";
@@ -183,7 +315,7 @@
             // .text(function(d) { return d.id; });
             .text(function(d) { 
                 // document.getElementById('tracklist').appendChild(makeUL(d.tracklist));
-                return "Artist: " + d.id + "\n" + "Degree: " + d.degree + "\n" + "Betweenness: " + d.betw;});
+                return "Artist: " + d.id + "\n" + "Degree: " + d.degree + "\n" + "Betweenness: " + d.betw+ "\n" + "Style: " + d.styles;});
             
         // We bind the positions of the SVG elements
         // to the positions of the dynamic force-directed graph,
@@ -198,18 +330,61 @@
                 .attr("cy", function(d) { return d.y; });
         });
 
-    
+    });
     });
 
     function getData(node){
         // d3.selectAll("#content > *").remove();
-
         svg_data
             .select("text.id")
             .transition()
             .duration(100)
-            .text(node.id)
-             
+            .text("Artist: " + node.id)
+        svg_data
+            .select("text.relevance")
+            .transition()
+            .duration(100)
+            .text("most common styles (" + commonStyles + ") with: " + mostStylArtist)
+        svg_data
+            .select("text.clicktosee")
+            .transition()
+            .duration(100)
+            .text("Double click on a node to see all relevant artists.")   
+        svg_data
+            .select("text.genre")
+            .transition()
+            .duration(100)
+            .text("Genres: " + node.genres)  
+        svg_data
+            .select("text.label")
+            .transition()
+            .duration(100)
+            .text("Labels: " + node.labels) 
+        svg_data
+            .select("text.country")
+            .transition()
+            .duration(100)
+            .text("Country: " + node.country) 
+        svg_data
+            .select("text.title")
+            .transition()
+            .duration(100)
+            .text("Release titles: " + node.title) 
+        svg_data
+            .select("text.num_for_sale")
+            .transition()
+            .duration(100)
+            .text("Available releases for sale on Discogs: " + node.num_for_sale) 
+        svg_data
+            .select("text.have")
+            .transition()
+            .duration(100)
+            .text("Number of people that have releases of this artist: " + node.have)
+        svg_data
+            .select("text.want")
+            .transition()
+            .duration(100)
+            .text("Number of people that want releases of this artist: " + node.want)
     }
 
     function dragstart(d) {
