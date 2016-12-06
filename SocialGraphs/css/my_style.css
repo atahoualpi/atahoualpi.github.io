@@ -1,7 +1,8 @@
 body {background: black; margin: 0; padding: 0;} 
 a {color: #2b2bf6;}           
 #container {width: 900px; margin: 0; padding: 0; background: #dddddd;}           
-#header {width: 100%;  height: 100px;  margin: 0; padding: 0; border: 0; background: black;}           
+#header {width: 50%;  height: 200px;  margin: 0; padding: 0; border: 0; float:left;background: black;}           
+#buttons {width: 50%;  height: 200px;  margin: 0; padding: 0; border: 0;float: right; background: black;}           
 #d3-container {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: left; background: black;}           
 #content {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: right; background: black; background-opacity: 0.1;}   
 #content h2 {color: white}
@@ -10,8 +11,11 @@ a {color: #2b2bf6;}
 #sever {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: right; background: black;}    
 #wordcloud {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: left; background: black;}    
 #wordcloud h2 {color: white}
+#alltracklist {width: 50%; height: 500px;  margin: 0; padding: 0; border: 0; float: right; background: black;} 
 #header p {color: white}
 #header h1 {color: white}
+#jupyter {  margin-top: 100px; padding: 0; border: 0;} 
+#dataseets {  margin-top: 200px; padding: 0; border: 0;} 
 #footer {width: 100%;  height: 70px;   margin: 0; padding: 0; border: 0; float: left; background: black; clear:both;}                            
 
 /*for the graph*/
@@ -35,6 +39,10 @@ a {color: #2b2bf6;}
   fill: orange;
 }
 
+/*.chartHorizontal .text {
+    mix-blend-mode: difference;
+}
+*/
 /* for the data on the right*/
 .severalAll {
   position: relative;
@@ -51,6 +59,37 @@ a {color: #2b2bf6;}
  color: white;
 }
 
+
+
+.contentBars rect {
+  fill: steelblue;
+}
+
+.contentBars text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.tracks li {
+  color: white;
+}
+
+.tracks h2 {
+  color: white;
+}
+
+p#smaller{
+    font-size: 15px;
+}
+
+p#secondtitle{
+    font-size: 21px;
+}
+
+h1#maintitle{
+    font-size: 38px;
+}
 
 body h1{
   color: white;
