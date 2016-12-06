@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Diggin Discogs</title>
+<title>Artists</title>
 
 <link rel="stylesheet" type="text/css" href="css/my_style.css">
 </head>
@@ -10,7 +10,7 @@
 
 <body>
 <!-- dropdown -->
-<div class="dropdown">
+<!-- <div class="dropdown">
 <button onclick="showHideDD()" class="dropbtn">Dropdown</button>
   <div id="myDropdown" class="dropdown-content">
     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
@@ -22,7 +22,7 @@
     <a href="#support">Support</a>
     <a href="#tools">Tools</a>
   </div>
-</div>
+</div> -->
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -45,15 +45,26 @@
 
 <!-- <div id="container"> </div> -->
 <div id="header">
- <h1>Find your new favorite artist</h1>
-<p>In the graph below, choose nodes to see details about artists</p>
+ <h1 id="maintitle">Diggin Artists</h1>
+<p id="secondtitle">In the graph below, choose nodes to see details about artists</p>
+<p id="smaller">Click once to get members of the same community (with black stroke)</p>
+<p id="smaller">Click twice to get all connected artists depending on music styles</p>
+
+ </div>
+ <div id="buttons">
+   <form id="jupyter" action="https://nbviewer.jupyter.org/gist/atahoualpi/94596d158a664e960735f1e4794fc910" target="_blank">
+    <input type="submit" value="Download Jupyter Notebook" />
+</form>
+<form id="datasets" action="https://drive.google.com/file/d/0B9sKaM8cdAVCX0JsYktfQzUwUVk/view?usp=sharing"  target="_blank">
+    <input type="submit" value="Download Dataset" />
+</form>
  </div>
 <!-- <div id="sidebar"> Left Navigation Goes Here</div> -->
 <div class= "network" id="d3-container">
 	<h2>The network</h2>
 	 
 </div>
-<div class="data" id="content"> <h2>Content Goes Here</h2></div>
+<div class="data" id="content"> <h2>Information about the chosen artist</h2></div>
 <div id="footer">  
 <!-- Trigger/Open The Modal -->
 	<button class="trivia" id="myBtn">Click to see Random Trivia</button>
@@ -65,17 +76,23 @@
 <!-- <div class="bardata" id="bar1"></div> -->
 <!-- <svg class="chart"></svg> -->
 <div class="chartHorizontal" id=chartHo>
-	<h2>Artist data</h2>
+	<h2>Statistics</h2>
 </div>
 
 <div class="severalAll" id=sever>
-	<h2>More data</h2>
+	<h2>Similarities</h2>
 </div>
 <div id="footer"> Footer Goes Here </div>
 <div class="wordclouds" id=wordcloud>
 	<h2>Wordcloud</h2>
 	 <img id="wordcloudpic" src="wordcloud/The Orb.png" alt="wordcloud picture" style="width:480px;height:480px;"> 
 </div>
+
+<div class="tracks" id="alltracklist">
+  <h2>Tracklist</h2>
+  <div id="tracklist"></div>
+</div>
+
 
 
 <script src="https://d3js.org/d3.v3.js"></script> 
