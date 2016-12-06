@@ -20,6 +20,8 @@
         .linkDistance(30)
         .size([width, height]);
 
+    var releaseTitles = "";
+
    // get data stuff
     var svg_data = d3.select("#content").select("svg")
     if (svg_data.empty()) {
@@ -37,96 +39,169 @@
 
     svg_data
         .append("text")
+        .text("Artist:")
+        .attr("x", 0)
+        .attr("y", 30)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "30px")
+        .attr("fill","black")
+        .attr("stroke", "green")
+        .attr("stroke-width", "0.8px"); 
+    svg_data
+        .append("text")
+        .attr("class", "title")
+        .text("Release Titles")
+        .attr("x", 0)
+        .attr("y", 180)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "30px")
+        .attr("fill","black")
+        .attr("stroke", "green")
+        .attr("stroke-width", "0.8px")
+            .append("svg:title")
+            .attr("class", "tittip")
+            .text(function(d){ return releaseTitles;});
+    svg_data
+        .append("text")
+        .attr("class", "mouseover")
+        .text("")
+        .attr("x", 220)
+        .attr("y", 180)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black")
+        
+    svg_data
+        .append("text")
         .attr("class", "id")
         .text("")
-        .attr("x", 0)
-        .attr("y", 20)
+        .attr("x", 100)
+        .attr("y", 30)
         .attr("font-family", 'FontAwesome')
         .attr("font-size", "20px")
         .attr("fill","black"); 
     svg_data
         .append("text")
-        .attr("class", "relevance")
-        .text("")
-        .attr("x", 0)
-        .attr("y", 60)
-        .attr("font-family", 'FontAwesome')
-        .attr("font-size", "20px")
-        .attr("fill","black"); 
-    svg_data
-        .append("text")
-        .attr("class", "clicktosee")
-        .text("")
-        .attr("x", 50)
-        .attr("y", 90)
-        .attr("font-family", 'FontAwesome')
-        .attr("font-size", "15px")
-        .attr("fill","black"); 
-    svg_data
-        .append("text")
-        .attr("class", "genre")
-        .text("")
+        .text("Country:")
         .attr("x", 0)
         .attr("y", 130)
         .attr("font-family", 'FontAwesome')
-        .attr("font-size", "20px")
-        .attr("fill","black"); 
-    svg_data
-        .append("text")
-        .attr("class", "label")
-        .text("")
-        .attr("x", 0)
-        .attr("y", 170)
-        .attr("font-family", 'FontAwesome')
-        .attr("font-size", "20px")
-        .attr("fill","black"); 
+        .attr("font-size", "30px")
+        .attr("fill","black")
+        .attr("stroke", "green")
+        .attr("stroke-width", "0.8px"); 
     svg_data
         .append("text")
         .attr("class", "country")
         .text("")
+        .attr("x", 140)
+        .attr("y", 130)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "20px")
+        .attr("fill","black");
+     svg_data
+        .append("text")
+        .text("Genres:")
         .attr("x", 0)
-        .attr("y", 210)
+        .attr("y", 80)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "30px")
+        .attr("fill","black")
+        .attr("stroke", "green")
+        .attr("stroke-width", "0.8px"); 
+    svg_data
+        .append("text")
+        .attr("class", "genre")
+        .text("")
+        .attr("x", 120)
+        .attr("y", 80)
         .attr("font-family", 'FontAwesome')
         .attr("font-size", "20px")
         .attr("fill","black"); 
     svg_data
         .append("text")
-        .attr("class", "title")
-        .text("")
+        .text("Labels:")
         .attr("x", 0)
-        .attr("y", 250)
+        .attr("y", 230)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "30px")
+        .attr("fill","black")
+        .attr("stroke", "green")
+        .attr("stroke-width", "0.8px"); 
+    svg_data
+        .append("text")
+        .attr("class", "label")
+        .text("")
+        .attr("x", 120)
+        .attr("y", 230)
         .attr("font-family", 'FontAwesome')
         .attr("font-size", "20px")
-        .attr("fill","black");
+        .attr("fill","black"); 
+    svg_data
+        .append("text")
+        .text("Available releases for sale on Discogs:")
+        .attr("x", 0)
+        .attr("y", 280)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "25px")
+        .attr("fill","black")
+        .attr("stroke", "green")
+        .attr("stroke-width", "0.8px");
     svg_data
         .append("text")
         .attr("class", "num_for_sale")
         .text("")
-        .attr("x", 0)
-        .attr("y", 290)
+        .attr("x", 480)
+        .attr("y", 280)
         .attr("font-family", 'FontAwesome')
         .attr("font-size", "20px")
         .attr("fill","black");
     svg_data
         .append("text")
+        .text("People that want releases of this artist:")
+        .attr("x", 0)
+        .attr("y", 330)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "25px")
+        .attr("fill","black")
+        .attr("stroke", "green")
+        .attr("stroke-width", "0.8px");
+    svg_data
+        .append("text")
         .attr("class", "want")
         .text("")
-        .attr("x", 0)
+        .attr("x", 490)
         .attr("y", 330)
         .attr("font-family", 'FontAwesome')
         .attr("font-size", "20px")
         .attr("fill","black");
     svg_data
         .append("text")
+        .text("People that have releases of this artist:")
+        .attr("x", 0)
+        .attr("y", 380)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "25px")
+        .attr("fill","black")
+        .attr("stroke", "green")
+        .attr("stroke-width", "0.8px");
+    svg_data
+        .append("text")
         .attr("class", "have")
         .text("")
-        .attr("x", 0)
-        .attr("y", 370)
+        .attr("x", 490)
+        .attr("y", 380)
         .attr("font-family", 'FontAwesome')
         .attr("font-size", "20px")
         .attr("fill","black");
     
-    
+    // var g_data_bars = g_data.append("g")
+    //     g_data_bars.append("rect")
+    //         .attr("class", "contentBars")
+    //         .attr("width", 500)
+    //         .attr("height", 500)
+    //         .attr("x", 0)
+    //         .attr("y", 220)
 
     // We select the < div> we created earlier and add an  container.
     // SVG = Scalable Vector Graphics
@@ -143,6 +218,7 @@
     var commonStyles = 0;
 
     var view;
+    var node;
 
     var tracks = document.getElementById("tracklist1");
     var sentiment = document.getElementById("sentiment1");
@@ -150,6 +226,7 @@
 
      //Toggle stores whether the highlighting is on
     var toggle = 0;
+    var toggle1click = 0;
 
     //Create an array logging what is connected to what
     var linkedByIndex = {};
@@ -161,15 +238,31 @@
         .on("dragstart", dragstart);
 
     var zoom = d3.behavior.zoom()
-        .scaleExtent([-8,4])
+        .scaleExtent([0.25,4])
         .on("zoom", zoomed);
+
+    var allCommunities;
+    // var max_sent;
+    // var max_betw;
+
+    d3.json("graphs/communities.json", function(error2, community) {
+        allCommunities = community;
+        for (var key in community) {
+            linkedByCommunity[community[key]] = [];
+        }
+        for (var key in community) {
+           if (community.hasOwnProperty(key)) {
+              linkedByCommunity[community[key]].push(key);
+           }
+          
+        }
+
+    });
     
     // We load the JSON network file.
     d3.json("graphs/graph_artists.json", function(error, graph) {
-    d3.json("graphs/communities.json", function(error2, community) {
-
-        console.log(Object.keys(community).length);
-        alert("Choose a node in the graph");
+   
+        // alert("Choose a node in the graph");
         var g = svg.append("g")
                 .call(zoom);
 
@@ -191,11 +284,18 @@
             linkedByIndex[d.source + "," + d.target] = 1;
         });
 
-      
 
         //Looks up whether a pair of nodes are neighbours.
         function neighboring(a, b) {
             return linkedByIndex[a + "," + b];
+        }
+
+        //Looks up whether a pair of nodes are in the same community.
+        function areCommunity(a, b) {
+            if(linkedByCommunity[allCommunities[a]].indexOf(b) >= 0)
+                return true;
+            else
+                return false;
         }
 
         function connectedNodes(d) {
@@ -214,13 +314,6 @@
                 link.style("stroke-width", function (o) {
                     return d.index==o.source.index | d.index==o.target.index ? 3 : 0.8;
                 });
-console.log(community[d.id])
-                // for (var i = 0; i < Object.keys(community).length; i++){
-                    // console.log(community[i])
-                    // if(d.id == community[i]){
-                    //     console.log(d.id + community[i])
-                    // }
-                // }
 
                 //Reset the toggle.
                 toggle = 1;
@@ -233,34 +326,50 @@ console.log(community[d.id])
             }
         }
 
-        function mostStyles(d) {
+        function showOnNetowrk(d) {
         
             //Reduce the opacity of all but the neighbouring nodes to 0.3.
             // var d = d3.select(this).node().__data__;
             mostStylArtist = "<Noone>";
             commonStyles = 0;           
-            node.attr("r", function (o) {  
-                
-                if (d.id != o.id){
-                    if (neighboring(d.index, o.index) | neighboring(o.index, d.index)){
-                        var counter = 0;
-                        for (var dstyl in d.styles){                            
-                            for (var ostyl in o.styles){
-                                if (d.styles[dstyl] == o.styles[ostyl]){
-                                    counter++;
+            if (toggle1click == 0) {
+                node.attr("r", function (o) {  
+                    
+                    if (d.id != o.id){
+                        if (neighboring(d.index, o.index) | neighboring(o.index, d.index)){
+                            var counter = 0;
+                            for (var dstyl in d.styles){                            
+                                for (var ostyl in o.styles){
+                                    if (d.styles[dstyl] == o.styles[ostyl]){
+                                        counter++;
+                                    }
                                 }
                             }
-                        }
-                        if (counter > commonStyles){
-                            commonStyles = counter;
-                            mostStylArtist = o.id;
-                        }
-                    } 
-                    return 6;
-                }
-                else
-                    return 9;
-            });
+                            if (counter > commonStyles){
+                                commonStyles = counter;
+                                mostStylArtist = o.id;
+                            }
+                        } 
+                        return 6;
+                    }
+                    else
+                        return 9;
+                });
+                node.style("stroke-width", function (o) {              
+                    return areCommunity(d.id, o.id) ? 3 : 1.5;
+                })
+                .style("stroke", function (o) {  
+                    return areCommunity(d.id, o.id) ? "black" : "white";
+                });
+                //Reset the toggle.
+                toggle1click = 1;
+            } else {
+                //Restore everything back to normal
+                node.attr("r", 6);
+                node.style("stroke-width", 1.5);
+                node.style("stroke", "white");
+                toggle1click = 0;
+            }
         }
 
 
@@ -282,7 +391,7 @@ console.log(community[d.id])
 
         // We create a < circle> SVG element for each node
         // in the graph, and we specify a few attributes.
-        var node = view.selectAll(".node")
+        node = view.selectAll(".node")
             .data(graph.nodes)
             .enter().append("circle")
             .attr("class", "node")
@@ -295,17 +404,12 @@ console.log(community[d.id])
             .call(drag)
             .on('dblclick', connectedNodes)
             .on("click", function(d){
-                mostStyles(this.__data__);
+                showOnNetowrk(this.__data__);
                 getData(this.__data__);
                 barData(this.__data__);
-                artistData(this.__data__);
+                artistData(this.__data__, allCommunities[this.__data__.id]);
                 trivia(this.__data__);   
-                document.getElementById("wordcloudpic").src="wordcloud/"+d.id+".png";
-                // tracks.innerHTML = "";
-                // tracks.appendChild(makeUL( d.tracklist));
-                // sentiment.innerHTML ="<span style=\"color:white\">"+d.sentiment+ "</span>";
-                // word.innerHTML = "<span style=\"color:white\">"+d.word+ "</span>";
-             
+                document.getElementById("wordcloudpic").src="wordcloud/"+d.id+".png";           
                 
             })
       
@@ -314,8 +418,9 @@ console.log(community[d.id])
         node.append("title")
             // .text(function(d) { return d.id; });
             .text(function(d) { 
+
                 // document.getElementById('tracklist').appendChild(makeUL(d.tracklist));
-                return "Artist: " + d.id + "\n" + "Degree: " + d.degree + "\n" + "Betweenness: " + d.betw+ "\n" + "Style: " + d.styles;});
+                return "Artist: " + d.id + "\n" + "Degree: " + d.degree + "\n" + "Deg_centr: " + d.deg_centr + "\n" + "Betweenness: " + d.betw+ "\n" + "Style: " + d.styles;});
             
         // We bind the positions of the SVG elements
         // to the positions of the dynamic force-directed graph,
@@ -330,61 +435,95 @@ console.log(community[d.id])
                 .attr("cy", function(d) { return d.y; });
         });
 
-    });
+
     });
 
     function getData(node){
         // d3.selectAll("#content > *").remove();
+        releaseTitles = node.title;
+        num_data = [node.num_for_sale, node.have, node.want];
+
         svg_data
             .select("text.id")
             .transition()
             .duration(100)
-            .text("Artist: " + node.id)
-        svg_data
-            .select("text.relevance")
-            .transition()
-            .duration(100)
-            .text("most common styles (" + commonStyles + ") with: " + mostStylArtist)
-        svg_data
-            .select("text.clicktosee")
-            .transition()
-            .duration(100)
-            .text("Double click on a node to see all relevant artists.")   
+            .text(node.id)   
         svg_data
             .select("text.genre")
             .transition()
             .duration(100)
-            .text("Genres: " + node.genres)  
+            .text(node.genres)  
         svg_data
             .select("text.label")
             .transition()
             .duration(100)
-            .text("Labels: " + node.labels) 
+            .text(node.labels) 
         svg_data
             .select("text.country")
             .transition()
             .duration(100)
-            .text("Country: " + node.country) 
+            .text(node.country) 
         svg_data
-            .select("text.title")
+            .select("text.mouseover")
             .transition()
             .duration(100)
-            .text("Release titles: " + node.title) 
+            .text("(mouse over to see titles)") 
+        svg_data              
+            .select("title.tittip")
+            .text(function(d){ return releaseTitles;}); 
         svg_data
             .select("text.num_for_sale")
             .transition()
             .duration(100)
-            .text("Available releases for sale on Discogs: " + node.num_for_sale) 
+            .text(node.num_for_sale) 
         svg_data
             .select("text.have")
             .transition()
             .duration(100)
-            .text("Number of people that have releases of this artist: " + node.have)
+            .text(node.have)
         svg_data
             .select("text.want")
             .transition()
             .duration(100)
-            .text("Number of people that want releases of this artist: " + node.want)
+            .text(node.want)
+
+// var heightbar = 500;
+// var widthbar = 500;
+
+// // var width = 960,
+// //     height = 500;
+
+// var y = d3.scale.linear()
+//     .range([heightbar, 0]);
+
+// // var chart = d3.select(".chart")
+// //     .attr("width", widthbar)
+// //     .attr("height", heightbar);
+
+// // d3.tsv("data.tsv", type, function(error, data) {
+//   y.domain([0, d3.max(num_data, function(d) { return d; })]);
+
+//   var barWidth = widthbar / num_data.length;
+
+//   var bar = g_data_bars.selectAll("rect")
+//       .data(num_data)
+//         .enter().append("g")
+//       .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
+
+//   bar.append("rect")
+//       .attr("y", function(d) { return y(d); })
+//       .attr("height", function(d) { return heightbar - y(d); })
+//       .attr("width", barWidth - 1);
+
+//   bar.append("text")
+//       .attr("x", barWidth / 2)
+//       .attr("y", function(d) { return y(d) + 3; })
+//       .attr("dy", ".75em")
+//       .text(function(d) { return d; });
+// });
+
+// }
+
     }
 
     function dragstart(d) {

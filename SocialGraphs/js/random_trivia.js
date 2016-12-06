@@ -28,33 +28,52 @@ function trivia(element){
 	// When the user clicks on the button, open the modal
 	btn.onclick = function() {
     	modal.style.display = "block";
-		var ranBtn = randomIntFromInterval(1,3);
+		var ranBtn = randomIntFromInterval(1,6);
+		console.log(ranBtn)
 		// randomTrivia.innerHTML = "Did you know that " + element.id + "'s most used word is " + element.word + "?";
 		switch(ranBtn){
 			case 1:
-				randomTrivia.innerHTML = "Did you know that " + element.id + "'s most used word is " + element.word + "?"
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s most used word is " + element.word + "?"
 				break;
 			case 2: 
-				randomTrivia.innerHTML = "Did you know that " + element.id + "'s most relevant artist is " + mostStylArtist + "?"
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s most related artist is " + mostStylArtist + "?"
 				break;
 			case 3: 
-				randomTrivia.innerHTML = "Did you know that " + element.id + "'s sentimental analysis is " + element.sentiment + "?"
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s sentimental analysis is " + element.sentiment + "?"
+				break;
+			case 4: 
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + " is from " + element.country + "?"
+				break;
+			case 5: 
+				randomTrivia.innerHTML = "Did you know that there are " + element.num_for_sale + " physical releases on sale from " + element.id.bold() + " available at Discogs?"
+				break;
+			case 6: 
+				randomTrivia.innerHTML = "Did you know that " + element.want + " Discogs users want releases of " + element.id.bold() + " right now?"
 		}	
 	}
 	if(firstTime){
 		firstTime = false;
 		modal.style.display = "block";
-		var ran = randomIntFromInterval(1,2);
+		var ran = randomIntFromInterval(1,6);
 		// randomTrivia.innerHTML = "Did you know that " + element.id + "'s most used word is " + element.word + "?";
 		switch(ran){
 			case 1:
-				randomTrivia.innerHTML = "Did you know that " + element.id + "'s most used word is " + element.word + "?"
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s most used word is " + element.word + "?"
 				break;
 			case 2: 
-				randomTrivia.innerHTML = "Did you know that " + element.id + "'s most relevant artist is " + mostStylArtist + "?"
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s most related artist from this dataset is " + mostStylArtist + "?"
 				break;
 			case 3: 
-				randomTrivia.innerHTML = "Did you know that " + element.id + "'s sentimental analysis is " + element.sentiment + "?"
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s sentimental analysis is " + element.sentiment + "?"
+				break;
+			case 4: 
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + " is from " + element.country + "?"
+				break;
+			case 5: 
+				randomTrivia.innerHTML = "Did you know that there are " + element.num_for_sale + " physical releases on sale from " + element.id.bold() + " available at Discogs?"
+				break;
+			case 6: 
+				randomTrivia.innerHTML = "Did you know that " + element.want + " Discogs users want releases of " + element.id.bold() + " right now?"
 		}
 	}
 }

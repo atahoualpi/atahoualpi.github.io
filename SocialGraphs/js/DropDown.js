@@ -1,6 +1,6 @@
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function myFunction() {
+function showHideDD() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
@@ -13,8 +13,10 @@ function filterFunction() {
     for (i = 0; i < a.length; i++) {
         if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
             a[i].style.display = "";
+
         } else {
             a[i].style.display = "none";
+             console.log("here");
         }
     }
 }

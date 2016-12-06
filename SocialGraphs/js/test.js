@@ -4,3 +4,5 @@ function test1(){
 	console.log(G.nodes());
 	// [1, 2, 3, "foo"]
 }
+
+
