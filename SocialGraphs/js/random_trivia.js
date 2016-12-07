@@ -39,7 +39,7 @@ function trivia(element){
 				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s most related artist is " + mostStylArtist + "?"
 				break;
 			case 3: 
-				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s sentimental analysis is " + element.sentiment + "?"
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s sentimental analysis is " + element.sentiment.toFixed(2) + "?"
 				break;
 			case 4: 
 				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + " is from " + element.country + "?"
@@ -64,7 +64,7 @@ function trivia(element){
 				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s most related artist from this dataset is " + mostStylArtist + "?"
 				break;
 			case 3: 
-				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s sentimental analysis is " + element.sentiment + "?"
+				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + "'s sentimental analysis is " + element.sentiment.toFixed(2) + "?"
 				break;
 			case 4: 
 				randomTrivia.innerHTML = "Did you know that " + element.id.bold() + " is from " + element.country + "?"

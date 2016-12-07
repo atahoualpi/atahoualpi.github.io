@@ -96,7 +96,7 @@ g_sev.append("text")
     .attr("class", "communTitle")
     .text("Community")
     .attr("x", 0)
-    .attr("y", 200)
+    .attr("y", 170)
     .attr("font-family", 'FontAwesome')
     .attr("font-size", "30px")
     .attr("fill","black")
@@ -110,7 +110,7 @@ g_sev
     .attr("class", "commun")
     .text("")
     .attr("x", 0)
-    .attr("y", 230)
+    .attr("y", 200)
     .attr("font-family", 'FontAwesome')
     .attr("font-size", "20px")
     .attr("fill","black")
@@ -120,10 +120,19 @@ g_sev
     .attr("class", "tip")
     .text("")
     .attr("x", 180)
-    .attr("y", 200)
+    .attr("y", 170)
     .attr("font-family", 'FontAwesome')
     .attr("font-size", "15px")
     .attr("fill","black")
+g_sev
+        .append("text")
+        .attr("class", "clicktosee2")
+        .text("")
+        .attr("x", 50)
+        .attr("y", 220)
+        .attr("font-family", 'FontAwesome')
+        .attr("font-size", "15px")
+        .attr("fill","black");
 
 // g_sev
 //     .append("text")
@@ -141,7 +150,7 @@ g_sev
     .attr("class", "distTitle")
     .text("The most related artist is:")
     .attr("x", 0)
-    .attr("y", 330)
+    .attr("y", 290)
     .attr("font-family", 'FontAwesome')
     .attr("font-size", "30px")
     .attr("fill","black")
@@ -153,7 +162,7 @@ g_sev
     .attr("class", "dist")
     .text("")
     .attr("x", 0)
-    .attr("y", 370)
+    .attr("y", 320)
     .attr("font-family", 'FontAwesome')
     .attr("font-size", "20px")
     .attr("fill","black")
@@ -162,7 +171,37 @@ g_sev
     .attr("class", "tip2")
     .text("")
     .attr("x", 10)
-    .attr("y", 390)
+    .attr("y", 350)
+    .attr("font-family", 'FontAwesome')
+    .attr("font-size", "15px")
+    .attr("fill","black")
+
+g_sev
+    .append("text")
+    .text("Persentage of fame:")
+    .attr("x", 0)
+    .attr("y", 420)
+    .attr("font-family", 'FontAwesome')
+    .attr("font-size", "30px")
+    .attr("fill","black")
+    .attr("stroke", "green")
+    .attr("stroke-width", "0.8px"); 
+
+g_sev
+    .append("text")
+    .attr("class", "famous")
+    .text("")
+    .attr("x", 0)
+    .attr("y", 450)
+    .attr("font-family", 'FontAwesome')
+    .attr("font-size", "20px")
+    .attr("fill","black")
+g_sev
+    .append("text")
+    .attr("class", "tip3")
+    .text("")
+    .attr("x", 10)
+    .attr("y", 470)
     .attr("font-family", 'FontAwesome')
     .attr("font-size", "15px")
     .attr("fill","black")
@@ -241,28 +280,35 @@ svg_several
     .transition()
     .duration(200)
     .text("(mouse over to see members of the community)")
-
+svg_several
+        .select("text.clicktosee2")
+        .transition()
+        .duration(100)
+        .text("Click on a node to see the artists that belong in the same community.")
     //
     // Distance
     //    
     var sent_array = [];
     var betw_array = [];
+    var deg_array = [];
 
     node.attr("transform", function(d){
         if(restCommun.indexOf(d.id) >= 0 ){
             sent_array.push(d.sentiment)
             betw_array.push(d.betw)
+            deg_array.push(d.deg_centr)
 
         }
         // console.log(d1,d2)
         return "translate(0,0)"})
     var max_sent = Math.max.apply(Math, sent_array);
     var max_betw = Math.max.apply(Math, betw_array);
+    var max_deg = Math.max.apply(Math, deg_array);
     var d_array = [];
     var id_array = [];
     node.attr("transform", function(d){
         if(restCommun.indexOf(d.id) >= 0 ){
-            d_array.push(Math.sqrt(Math.pow((element.sentiment/max_sent - d.sentiment/max_sent),2) + Math.pow((element.betw/max_betw - d.betw/max_betw),2) ));
+            d_array.push(Math.sqrt(Math.pow((element.sentiment/max_sent - d.sentiment/max_sent),2) + Math.pow((element.betw/max_betw - d.betw/max_betw),2)+ Math.pow((element.betw/max_deg - d.deg_centr/max_deg),2) ));
             id_array.push(d.id);
         }
         // console.log(d1,d2)
@@ -279,7 +325,17 @@ svg_several
     .select("text.tip2")
     .transition()
     .duration(200)
-    .text("** calculated using sentimental analysis and betweenness centrality")
+    .text("* calculated using sentimental analysis and betweenness and degree centrality")
+svg_several              
+    .select("text.famous")
+    .transition()
+    .duration(200)
+    .text(element.famous.toFixed(4) +" %" )
+svg_several              
+    .select("text.tip3")
+    .transition()
+    .duration(200)
+    .text("** calculated using betweenness centrality")
 }
 
 
