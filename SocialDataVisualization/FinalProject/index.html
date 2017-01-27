@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<head>
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" title="no title" charset="utf-8"/>	
+</head>
+<body>
+<div id="header">
+<h1>Social Data Analysis and Visualization - Final Project</h1>
+</div>
+<div id="nav">
+<center>
+<a href="#plot1">Plot 1</a>
+<br>
+<a href="#plot2">Plot 2</a>
+<br>
+<a href="#plot3">Plot 3</a>
+</center>
+</div>
+<a name="plot1">
+<div>
+  <label><input type="radio" name="mode" value="multiples" checked> Points of Interest</label>
+  <label><input type="radio" name="mode" value="stacked"> Level of Dangerousness</label>
+</div>
+<div id="vis1"></div>
+<div id="vis2"></div>
+<a name="plot2">
+<div id="vis3"></div>
+<a name="plot3">
+<div id="vis4"></div>
+
+<script src="d3/d3.js"></script>
+<script src="d3-tip/index.js"></script>
+
+<script src="javascript.js" charset="utf-8"></script>
+
+</body>
+</html>
