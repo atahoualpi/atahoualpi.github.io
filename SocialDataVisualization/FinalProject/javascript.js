@@ -38,11 +38,11 @@ var svg1 = d3.select("#vis1").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var tooltip;
+// var tooltip;
 var div;
 //make tooltip 
 div = d3.select("#vis1").append("div")   
-    .attr("class", "tooltip")               
+    .attr("class", "tooltip_bar")               
     .style("opacity", 0);
 
 d3.csv("csv-files/best_area.csv", function(error, data) {
