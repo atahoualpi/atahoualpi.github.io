@@ -38,14 +38,14 @@ var svg1 = d3.select("#vis1").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var tooltip;
+// var tooltip;
 var div;
 //make tooltip 
 div = d3.select("#vis1").append("div")   
-    .attr("class", "tooltip")               
+    .attr("class", "tooltip_bar")               
     .style("opacity", 0);
 
-d3.csv("csv-files/best_area4.csv", function(error, data) {
+d3.csv("csv-files/best_area.csv", function(error, data) {
   data.forEach(function(d) {
     d.Value = +d.Value;
   });
@@ -185,7 +185,7 @@ var arc = d3.svg.arc()
 var labelArc = d3.svg.arc()
     .outerRadius(radius - 40)
     .innerRadius(radius - 40);
-
+console.log(labelArc.centroid)
 var pie = d3.layout.pie()
     .sort(null)
     .value(function(d) { return d.Trees; });
