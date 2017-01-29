@@ -1,83 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<title>Melbourne</title>
+<meta charset="utf-8">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="style.css" media="screen" title="no title" charset="utf-8"/>	
-	<!-- Bootstrap -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style.css" media="screen" title="no title" charset="utf-8"/>	
 </head>
 <body>
-	<!-- <div id="header">
-	<h1>Social Data Analysis and Visualization - Final Project</h1>
-	</div>
-	<div id="nav">
-	<center>
-	<a href="#plot1">Plot 1</a>
-	<br>
-	<a href="#plot2">Plot 2</a>
-	<br>
-	<a href="#plot3">Plot 3</a>
-	</center>
-	</div> -->
-	<!-- <a name="plot1"> -->
-	<h1 class="title">Comparison between points of interest and allergy dangerousness </br>in different areas of Melbourne</h1>
-	<div>
-	  <label><input type="radio" name="mode" value="multiples" checked> Points of Interest</label>
-	  <label><input type="radio" name="mode" value="stacked"> Level of Dangerousness</label>
-	</div>
-
-
-	<div id="vis1"></div>
-	<div id="vis2"></div>
-	<!-- <a name="plot2"> -->
-	<div id="vis3"></div>
-	<!-- <a name="plot3"> -->
-	<p class="smalltitle">Choose number of clusters depending on the squared error</p>
-
-	<div id="vis4"></div>
-	<!-- <a name="plot4"> -->
-<p class="smalltitle">Melbourne split depending on the allergy dangerousness</p>
-
-	<div id="vis5">
-	 <svg id="treesSVG" height="800" width="800"> <defs><div id="myTooltipTrees" class="tooltip"></div></defs> </svg>
-	</div>
-<p class="smalltitle">Sightseeing locations clustered (choose a cluster)</p>
-	<!-- <a name="plot5"> -->
-
-
-	<div id="vis6"><!--id="map_canvas"-->
-    <svg id="artSVG" height="800" width="800"> <defs><div id="myArtTooltip" class="tooltip"></div></defs> </svg>
-
+<div id="header">
+<h1>Social Data Analysis and Visualization - Final Project</h1>
 </div>
+<div id="nav">
+<center>
+<a href="#plot1">Plot 1</a>
+<br>
+<a href="#plot2">Plot 2</a>
+<br>
+<a href="#plot3">Plot 3</a>
+</center>
+</div>
+<a name="plot1">
+<div>
+  <label><input type="radio" name="mode" value="multiples" checked> Points of Interest</label>
+  <label><input type="radio" name="mode" value="stacked"> Level of Dangerousness</label>
+</div>
+<div id="vis1"></div>
+<div id="vis2"></div>
+<a name="plot2">
+<div id="vis3"></div>
+<a name="plot3">
+<div id="vis4"></div>
 
+<script src="d3/d3.js"></script>
+<script src="d3-tip/index.js"></script>
 
-	
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <!--Graph functions-->
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/d3/d3.min.js"></script>
-    <script src="js/KNNvisualization.js"></script>
-    <script type="text/javascript">
-        fillTreesSVG("treesSVG");
-    </script>
-    <script src="js/artVisualization.js"></script>
-
-<script type="text/javascript">
-    fillartSVG("artSVG");
-</script>
-
-	<script src="d3/d3.js"></script>
-	<script src="d3-tip/index.js"></script>
-
-	<script src="javascript.js" charset="utf-8"></script>
+<script src="javascript.js" charset="utf-8"></script>
 
 </body>
 </html>

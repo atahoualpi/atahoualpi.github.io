@@ -60,7 +60,7 @@ form {
 
 /* bar chart */
 
-div.tooltip_bar {   
+div.tooltip {   
       position: absolute;           
       text-align: center;           
       padding: 12px;   
@@ -86,20 +86,6 @@ div.tooltip_bar {
   stroke: #4d2800;
 }
 
-.smalltitle {
-  font: 23px FontAwesome;
-  font-weight: bold;
-  text-anchor: middle;
-  stroke: #4d2800;
-  margin-top: 2cm;
-}
-
-.title {
-  font-weight: bold;
-  text-anchor: middle;
-  stroke: #4d2800;
-  margin-bottom: 2cm;
-}
 .arc path {
   stroke: #4d2800;
 }
@@ -188,31 +174,4 @@ div.tooltip_tree {
 #curve-line {
   /*stroke: #000;*/
   display: none;
-}
-
-/* Map */
-.tooltip {
-  pointer-events:none; /*let mouse events pass through*/
-  opacity:0;
-  transition: opacity 0.3s;
-  /*text-shadow:1px 1px 0px gray;*/
-  background-color: white;
-  border-radius: 10px;
-  padding: 8px 16px;
-  border:solid gray;
-  min-width: 12em;
-  text-align: center;
-            }
-.tooltip:after {
-  box-sizing: border-box;
-  display: inline;
-  width: 100%;
-  line-height: 1;
-  color: #EDE3D1;
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-  margin: -3px 0 0 0;
-  top: 100%;
-  left: 0;
 }
