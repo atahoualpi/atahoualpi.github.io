@@ -9,7 +9,12 @@
     font-weight: bold;
   }
 
-
+.lines{
+  opacity: .3;
+  stroke: black;
+  stroke-width: 1px;
+  fill: none;
+}
 
 </style>
 <h1>Most used platforms</h1>
@@ -93,7 +98,15 @@ var text = arcs.append("text")
           .attr("class", "labels")
           
           .attr("x", function(d){
-            return radius * Math.cos((d.startAngle+d.endAngle)/2-Math.PI/2);
+            var angle = (d.startAngle+d.endAngle)/2;
+            var pos;
+            if(angle >= Math.PI){
+              pos = -50+radius *Math.cos((d.startAngle+d.endAngle)/2-Math.PI/2);
+            }
+            else{
+              pos = 10+radius*Math.cos((d.startAngle+d.endAngle)/2-Math.PI/2);
+            }
+            return pos;
           })
           .attr("y",function(d,i){
               return radius * Math.sin((d.startAngle+d.endAngle)/2-Math.PI/2);
