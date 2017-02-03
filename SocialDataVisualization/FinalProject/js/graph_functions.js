@@ -1,7 +1,3 @@
-/**
- * Created by Riccardo on 4/7/2016.
- */
-
 //Width and height
 var w = 800;
 var h = 800;
