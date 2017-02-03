@@ -1,6 +1,3 @@
-/**
- * Created by Riccardo on 5/10/2016.
- */
 function fillTreesSVG(svgID){
 
 //Width and height
