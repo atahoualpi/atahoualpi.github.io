@@ -1,7 +1,3 @@
-/**
- * Created by Riccardo on 5/11/2016.
- */
-
 function fillartSVG(svgID){
 
 //Width and height
