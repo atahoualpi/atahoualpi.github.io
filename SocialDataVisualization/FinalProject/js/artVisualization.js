@@ -494,6 +494,4 @@ function fillartSVG(svgID){
 
     });
 
-}/**
- * Created by Riccardo on 5/16/2016.
- */
+}
