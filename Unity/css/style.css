@@ -1,1 +1,61 @@
+.labels{
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+.lines{
+  opacity: .3;
+  stroke: black;
+  stroke-width: 1px;
+  fill: none;
+}
+
+.divpie{
+  max-width:700px;
+  width:50%;
+}
+
+.svgimg{
+	float:left;
+  display: table-cell;
+  vertical-align: top;
+}
+
+.svgbar{
+	float:left;
+	clear: left;
+  vertical-align: top;
+}
+
+.allwidth{
+  width: 100%;
+}
+
+#firstcol{
+  margin-top: 100px;
+}
+
+#secondcol{
+  margin-top: 100px;
+}
+
+/*bar chart*/
+.bar {
+  fill: steelblue;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
 
