@@ -102,6 +102,9 @@ function resetall(){
     arr = [];
     d3.selectAll(".barcharts").remove();
     d3.selectAll(".svgimg").remove();
+    for (var i in isClicked){
+        isClicked[i] = 0;
+    }
     d3.selectAll("g.arc").select("path").transition()
         .duration(750)
               // .attr("stroke","blue")
