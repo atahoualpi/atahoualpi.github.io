@@ -1,143 +1,40 @@
 <!DOCTYPE html>
-<html>
-<meta charset="utf-8">
-<title>Platform Pie Chart</title>
-<head>
-<style>
-  .labels{
-    font-size: 12px;
-    font-weight: bold;
-  }
+<html lang="en">
+  <meta charset="utf-8">
+  <title>Platform Pie Chart</title>
+  <head>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <h1 id="thetitle">Most used platforms</h1>
+  </head>
+  <body>
+    <!-- <script src="//d3js.org/d3.v3.min.js"></script> -->
+    <script src="d3/d3.js"></script>
+    <div class=divpie></div>
+    <div class="container"> <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="firstcol">
+                    
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="secondcol">
+                    
+                </div>
+                <!-- <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="3">
+                    lilililil
+                </div> -->
+            </div>
+        </div>
+ 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <!--Graph functions-->
 
-.lines{
-  opacity: .3;
-  stroke: black;
-  stroke-width: 1px;
-  fill: none;
-}
-
-</style>
-<h1>Most used platforms</h1>
-</head>
-<body>
-<!-- <script src="//d3js.org/d3.v3.min.js"></script> -->
-<script src="d3/d3.js"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
-<script>
-
-var width = 960,
-    height = 500,
-    radius = Math.min(width, height) / 2 - 10;
-
-var color = d3.scale.category20();
-
-var arc = d3.svg.arc()
-    .outerRadius(radius);
-
-  var pie = d3.layout.pie();
-var val = [];
-var arcs;
-// var data = d3.range(10).map(Math.random).sort(d3.descending);
-// var data = [34,23]
-d3.json("data/dataset.json", function(error, datatest) {
-// console.log(typeof(data))
-// console.log(Object.keys(datatest))
-for (i in datatest){
-  if(i.split("_")[0] == 'PLATFORM' && i.split("_")[1] != undefined){
-    console.log(i.split("_")[1]);
-    // val.push({platform: i,value: datatest[i]});
-    val.push({label: i,value: datatest[i]});
-    // console.log(val)
-
-  }
-}
-console.log(val);
-var data = [];
-for( i in val){
-  data.push(val[i].value)
-
-}  
-var maxVal = Math.max(...data);
-console.log(maxVal)
-// for( i in val){
-//   val[i].value /= maxVal;
-// console.log(val[i].value)
-// }  
-
-console.log(data)
-var svg = d3.select("body").append("svg")
-      .datum(data)
-      .attr("width", width)
-      .attr("height", height)
-      .attr("class", "mainsvg")
-    .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-   arcs = svg.selectAll("g.arc")
-      .data(pie)
-    .enter().append("g")
-      .attr("class", "arc");
-
-  arcs.append("path")
-      .attr("fill", function(d, i) { 
-        return color(i); })
-    .transition()
-      .ease("bounce")
-      .duration(2000)
-      .attrTween("d", tweenPie)
-    .transition()
-      .ease("elastic")
-      .delay(function(d, i) { return 2000 + i * 50; })
-      .duration(750)
-      .attrTween("d", tweenDonut)
-      .each("end", showtext);
-
-});
-function showtext(){
-var text = arcs.append("text")
-          .attr("class", "labels")
-          
-          .attr("x", function(d){
-            var angle = (d.startAngle+d.endAngle)/2;
-            var pos;
-            if(angle >= Math.PI){
-              pos = -50+radius *Math.cos((d.startAngle+d.endAngle)/2-Math.PI/2);
-            }
-            else{
-              pos = 10+radius*Math.cos((d.startAngle+d.endAngle)/2-Math.PI/2);
-            }
-            return pos;
-          })
-          .attr("y",function(d,i){
-              return radius * Math.sin((d.startAngle+d.endAngle)/2-Math.PI/2);
-          })
-          .attr("opacity", 0);
-
-    text.data(val)
-    .text(function(d){
-            return d.label.split("_")[1];
-          })
-    .transition()
-          // .ease("bounce")
-          .duration(5000)
-          .attr("opacity", 1);
-
-}
-
-function tweenPie(b) {
-  b.innerRadius = 0;
-  var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
-  return function(t) { return arc(i(t)); };
-}
-
-function tweenDonut(b) {
-  b.innerRadius = radius * .6;
-  var i = d3.interpolate({innerRadius: 0}, b);
-  return function(t) { return arc(i(t)); };
-}
-
-
-
-</script>
-</body>
+    <!-- <script src="js/jquery-1.11.1.min.js"></script> -->
+    <script type="text/javascript" src="js/piechart.js"></script>
+    <script type="text/javascript" src="js/pictures.js"></script>
+    <script type="text/javascript" src="js/barchart.js"></script>
+  </body>
 </html>
