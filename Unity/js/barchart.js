@@ -1,6 +1,6 @@
-function showbars(pltext){
-    console.log(pltext)
-	var margin = {top: 20, right: 30, bottom: 30, left: 40},
+function showbars(pltext, arccolor){
+    console.log(arccolor)
+	var margin = {top: 20, right: 30, bottom: 30, left: 50},
     // width = 960 - margin.left - margin.right,
     width = 250
     height = 200 - margin.top - margin.bottom;
@@ -17,22 +17,45 @@ function showbars(pltext){
 
     var yAxis = d3.svg.axis()
         .scale(y)
+        .tickValues([0,20000, 40000,60000,80000, 100000])
         .orient("left");
 
     var chart = d3.select("#secondcol").append("svg")
+        .attr("class", "barcharts")
+        .attr("id", function(){ return pltext})
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+        var xSymbol = chart.append("svg:image")
+        .attr("xlink:href", "pictures/xsymb.png")
+        .attr("x", "235")
+        .attr("y", "-20")
+        .attr("width", "70")
+        .attr("height", "16")
+        .on("click", function(){
+            isClicked[pltext] = 0;
+            var index = arr.indexOf(pltext);
+            if (index > -1) {
+                arr.splice(index, 1);
+            }
+            removebars(pltext);
+            removepics(pltext);
+            removeanim(pltext);
+        })
+
+    var valArray = [];
+
     d3.tsv("data/bardata.tsv", type, function(error, data) {
-       
-        console.log(data[0])
-        console.log(data[0].Category)
-        console.log(data[0]['PLATFORM_ANDROID'])
+        for (var i=0;i<4;i++){
+            valArray.push(parseInt(data[i][pltext]))
+        }
+
+        var maxheight = Math.max(...valArray);
 
       x.domain(data.map(function(d,i) { return data[i].Category; }));
-      y.domain([0, d3.max(data, function(d,i) { return data[i]['PLATFORM_ANDROID']; })]);
+      y.domain([0, 100000]);
 
       chart.append("g")
           .attr("class", "x axis")
@@ -47,60 +70,41 @@ function showbars(pltext){
           .data(data)
         .enter().append("rect")
           .attr("class", "bar")
+          
           .attr("x", function(d,i) { return x(data[i].Category); })
-          .attr("y", function(d,i) { return y(data[i]['PLATFORM_ANDROID']); })
-          .attr("height", function(d,i) { return height - y(data[i]['PLATFORM_ANDROID']); })
-          .attr("width", x.rangeBand());
+          .attr("y", function(d,i) { 
+            return y(data[i][pltext]); })
+          .attr("height", function(d,i) { return height - y(data[i][pltext]); })
+          .attr("width", x.rangeBand())
+          .attr("fill", arccolor[pltext]);
+
+    chart.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 4))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text(pltext);
     });
 
-function type(d,i) {
-  data[i]['PLATFORM_ANDROID'] = +data[i]['PLATFORM_ANDROID']; // coerce to number
-  return d;
+    function type(d,i) {
+      data[i][pltext] = +data[i][pltext]; // coerce to number
+      return d;
+    }
+
 }
 
-        // var dataset1 = [5,10,15,20,25];
-        //     // Width and height of canvas
-        //     var w1 = 600;
-        //     var h1 = 200;
-        //     var chart2A;
-        //     var padding1 = 1;
-        //     // Create svg element
-        //     chart2A = d3.select("#secondcol")
-        //         .append("svg")
-        //         .attr("class", "svgbar")
-        //         .attr("width", w1)
-        //         .attr("height", h1);
+function removebars(pltext){
+    d3.select("#" + pltext).remove();
+}
 
-        //     chart2A.selectAll("rect")
-        //         .data(dataset1)
-        //         .enter()
-        //         .append("rect")
-        //         .attr("x",function(d,i){
-        //             return 50*i+padding1;
-        //         })
-        //         .attr("y",function(d,i){
-        //             return 60-i*15;
-        //         })
-        //         .attr("width", 80)
-        //         .attr("height", 80)
-        //         .attr("fill", function(d,i){
-        //             switch(i){
-        //                 case 0:
-        //                     return "purple"
-        //                 case 1:
-        //                     return "blue"
-        //                 case 2:
-        //                     return "green"
-        //                 case 3:
-        //                     return "yellow"
-        //                 case 4:
-        //                     return "red"
-        //             }   
-        //         })
-        //         .attr("stroke", "gray")
-        //         .attr("stroke-width", 2)
-        //         .attr("opacity", function(d,i){ 
-        //             return 1.0-0.2*i;
-        //         });
-
+function resetall(){
+    arr = [];
+    d3.selectAll(".barcharts").remove();
+    d3.selectAll(".svgimg").remove();
+    d3.selectAll("g.arc").select("path").transition()
+        .duration(750)
+              // .attr("stroke","blue")
+              .attr("stroke-width", 0)
+              .attr("d", arcFinal);
 }

@@ -1,13 +1,13 @@
 var width =640,
     height = 333,
-    radius = Math.min(width, height) / 2 - 10;
+    radius = Math.min(width, height) / 2 ;
 
 var color = d3.scale.category20();
 
 var arc = d3.svg.arc()
     .outerRadius(radius);
 
-  var pie = d3.layout.pie();
+var pie = d3.layout.pie();
 var val = [];
 var data = [];
 var sortVal;
@@ -15,11 +15,14 @@ var sorteight = [];
 var arr = [];
 var pltext;
 var arcs;
+var isClicked = {};
+var arccolor = {};
+var labels;
 var outerRadius = Math.min(width, height) / 2,
        innerRadius = outerRadius * .999,   
        // for animation
        innerRadiusFinal = outerRadius * .5,
-       innerRadiusFinal3 = outerRadius* .45;
+       innerRadiusFinal3 = outerRadius* .4;
 // for animation
    var arcFinal = d3.svg.arc().innerRadius(innerRadiusFinal).outerRadius(outerRadius);
   var arcFinal3 = d3.svg.arc().innerRadius(innerRadiusFinal3).outerRadius(outerRadius);
@@ -55,23 +58,12 @@ for(var i=0;i<9;i++){
 }
 // console.log(sorteight)
 
-var arr = val.filter(function (item) {
-  return (sorteight.indexOf(item.label) > -1);
-});
-// console.log(arr)
-
 var othercount = 0;
 for (var i in val){
   if(sorteight.indexOf(val[i].label) < 0){
     othercount += val[i].value;
   }
 }
-
-arr.push({label: "OTHER", value: othercount})
-
-// console.log(arr)
-
-
 
 // console.log(typeof(data))
 for(var i in val){
@@ -80,7 +72,6 @@ for(var i in val){
 }  
 // console.log(val, typeof(val))
 // console.log(data)
-// console.log(arr, typeof(arr))
 
 var maxVal = Math.max(...data);
 // console.log(maxVal)
@@ -88,7 +79,6 @@ var maxVal = Math.max(...data);
 //   val[i].value /= maxVal;
 // console.log(val[i].value)
 // }  
-
 
 
 // console.log(data)
@@ -104,20 +94,30 @@ var svg = d3.select(".divpie").append("svg")
       .data(pie)
     .enter().append("g")
       .attr("class", "arc")
-      // .on("click", mouseover)
+      
       .on("click", function(d){
         pltext = this.textContent;
-        console.log(pltext);
-        showPics(pltext);
+        isClicked[pltext] = 1;
+
+        if(arr.indexOf(pltext) > -1){
+        }
+        else{
+          arr.push(pltext);
+          showPics(pltext, arccolor);
+        }
+
       })
+      .on("mouseover", mouseover)
       .on("mouseout", mouseout);
 
 
+// showtext();
 
   arcs.append("path")
       .attr("fill", function(d, i) { 
+        // arccolor[this.parentNode.textContent] = color(i);
         return color(i); })
-     
+
       .transition()
       .ease("bounce")
       .duration(2000)
@@ -128,8 +128,13 @@ var svg = d3.select(".divpie").append("svg")
       .duration(750)
       .attrTween("d", tweenDonut);
       // .each("end", showtext);
-showtext();
 
+// d3.select("#textPlatf").remove();
+showtext();
+ arcs.append("path")
+      .attr("fill", function(d, i) { 
+        arccolor[this.parentNode.textContent] = color(i);
+        return color(i); })
 
 });
 
@@ -163,18 +168,18 @@ function showtext(){
 //           .duration(5000)
 //           .attr("opacity", 1);
 
-
 // Add a label to the larger arcs, translated to the arc centroid and rotated.
-var labels = arcs/*.filter(function(d) { return d.endAngle - d.startAngle > .2; })*/
+labels = arcs/*.filter(function(d) { return d.endAngle - d.startAngle > .2; })*/
         .append("svg:text")
+        .attr("id", "textPlatf")
         .attr("dy", ".35em")
         .attr("text-anchor", "middle")
         .attr("opacity", 0)
         .attr("transform", function(d) { return "translate(" + arcFinal.centroid(d) + ")rotate(" + angle(d) + ")"; })
+
    labels.data(val)
         .text(function(d,i) {
         // console.log(d.label) 
-
        if(sorteight.indexOf(d.label) > -1){
           return d.label.split("_")[1];
        }
@@ -184,17 +189,15 @@ var labels = arcs/*.filter(function(d) { return d.endAngle - d.startAngle > .2; 
         .transition()
           // .ease("bounce")
           .duration(4000)
-          .attr("opacity", 1);
-    
-   
-   // Computes the label angle of an arc, converting from radians to degrees.
+          .attr("opacity", 1)
+
+    }
+    // Computes the label angle of an arc, converting from radians to degrees.
     function angle(d) {
         var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
 
         return a > 90 ? a - 180 : a;
     }
-
-}
 
 function tweenPie(b) {
   b.innerRadius = 0;
@@ -203,7 +206,7 @@ function tweenPie(b) {
 }
 
 function tweenDonut(b) {
-  b.innerRadius = radius * .6;
+  b.innerRadius = radius * .5;
   var i = d3.interpolate({innerRadius: 0}, b);
   return function(t) { return arc(i(t)); };
 }
@@ -211,17 +214,33 @@ function tweenDonut(b) {
 function mouseover() {
     d3.select(this).select("path").transition()
         .duration(750)
-              //.attr("stroke","red")
-              //.attr("stroke-width", 1.5)
+              .attr("stroke","black")
+              .attr("stroke-width", 1)
               .attr("d", arcFinal3)
               ;
   }
   
   function mouseout() {
-    d3.select(this).select("path").transition()
+    if (isClicked[this.textContent] != 1){
+       d3.select(this).select("path").transition()
         .duration(750)
-              //.attr("stroke","blue")
-              //.attr("stroke-width", 1.5)
-              .attr("d", arcFinal)
-              ;
+              // .attr("stroke","blue")
+              .attr("stroke-width", 0)
+              .attr("d", arcFinal);
+    }
+   
+  }
+
+  function removeanim(pltext){
+    arcs.attr("opaci", function(d){
+      if(this.textContent == pltext){
+        console.log(this)
+      
+      d3.select(this).select("path").transition()
+        .duration(750)
+              // .attr("stroke","blue")
+              .attr("stroke-width", 0)
+              .attr("d", arcFinal);
+            }
+    })
   }
