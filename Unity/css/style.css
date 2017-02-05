@@ -40,9 +40,9 @@
 }
 
 /*bar chart*/
-.bar {
+/*.bar {
   fill: steelblue;
-}
+}*/
 
 .axis text {
   font: 10px sans-serif;
@@ -59,3 +59,33 @@
   display: none;
 }
 
+#resetbtn{
+  float:right;
+  margin-right: 200px;
+}
+
+.button {
+  padding: 15px 25px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #F04444;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 7px #999;
+}
+
+.button:hover {background-color: #AE5151}
+
+.button:active {
+  background-color: #F90000;
+  box-shadow: 0 4px #666;
+  transform: translateY(4px);
+}
+
+#thetitle{
+  /*padding: 15px 155px;*/
+  margin-left: 150px;
+}
