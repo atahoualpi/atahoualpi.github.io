@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="utf-8">
+  <title>Platform Pie Chart</title>
+  <head>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+    <h1 id="thetitle">Most used platforms per specialty</h1>
+    <p id="thesubtitle">Choose elements on the pie chart to compare them.</p>
+  </head>
+  <body>
+    <!-- <script src="//d3js.org/d3.v3.min.js"></script> -->
+    <script src="d3/d3.js"></script>
+    <div class=divpie>
+       
+    </div>
+    <div class="container"> <!-- If Needed Left and Right Padding in 'md' and 'lg' screen means use container class -->
+      <button class="button" id='resetbtn' onclick="resetall()">Reset</button> 
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="firstcol">
+                    
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="secondcol">
+                    
+                </div>
+            </div>
+        </div>
+ 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <!--Graph functions-->
 
+    <!-- <script src="js/jquery-1.11.1.min.js"></script> -->
+    <script type="text/javascript" src="js/piechart.js"></script>
+    <script type="text/javascript" src="js/pictures.js"></script>
+    <script type="text/javascript" src="js/barchart.js"></script>
+  </body>
+</html>
